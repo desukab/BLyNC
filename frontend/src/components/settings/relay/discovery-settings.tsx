@@ -188,7 +188,7 @@ export function DiscoverySettings() {
 									}
 									target="_blank"
 									rel="noopener noreferrer"
-									className="underline hover:text-foreground"
+									className="rounded-sm underline decoration-current/40 underline-offset-2 hover:decoration-current hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring pointer-coarse:inline-block pointer-coarse:py-3"
 								>
 									{t('settings.network.discovery.docsLink')}
 								</a>
