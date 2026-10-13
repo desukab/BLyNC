@@ -1,5 +1,11 @@
 {
-	"appTitle": "DashBeam",
+	"appTitle": "BLyNC",
+	"brand": {
+		"name": "BLyNC",
+		"tagline": "Peer-to-peer file transfer",
+		"poweredBy": "Based on DashBeam",
+		"openSource": "Open source, end-to-end encrypted, no accounts."
+	},
 	"send": "Küldés",
 	"webPreview": {
 		"banner": "Előnézeti mód - fájlátvitelhez asztali alkalmazás szükséges.",
@@ -43,6 +49,8 @@
 		"sendThisTicket": "A fogadófélnek ezt a jegyet add át",
 		"keepAppOpen": "Tartsd megnyitva ezt az ablakot, míg a többiek letölti a fájl(okat)",
 		"fileLabel": "Fájl:",
+		"activeTransfer": "{{count}} transfer in progress",
+		"activeTransfers": "{{count}} transfers in progress",
 		"listeningForConnection": "Várakozás kapcsolatra",
 		"sharingInProgress": "Átvitel folyamatban",
 		"transferCompleted": "Átvitel befejezve",

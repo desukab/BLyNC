@@ -1,5 +1,6 @@
 import { useThemeStore } from '../store'
 import { useEffect } from 'react'
+import { applyAndroidSystemBarTheme } from '@/lib/systemBarTheme'
 import { isNamedTheme, resolveColorMode, type AppTheme } from '../types/app'
 
 type Props = {
@@ -24,6 +25,9 @@ function applyTheme(theme: AppTheme, setIsDark: (isDark: boolean) => void) {
 	}
 
 	setIsDark(resolved === 'dark')
+	// Must follow the resolved mode, not the OS: on Android the system bars are
+	// transparent and the only thing behind them is what this just painted.
+	applyAndroidSystemBarTheme(resolved === 'dark')
 }
 
 export function AppThemeProvider({ children }: Props) {

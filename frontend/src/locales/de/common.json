@@ -1,5 +1,11 @@
 {
-	"appTitle": "DashBeam",
+	"appTitle": "BLyNC",
+	"brand": {
+		"name": "BLyNC",
+		"tagline": "Peer-to-peer file transfer",
+		"poweredBy": "Based on DashBeam",
+		"openSource": "Open source, end-to-end encrypted, no accounts."
+	},
 	"send": "Senden",
 	"webPreview": {
 		"banner": "Vorschaumodus - Dateiübertragungen erfordern die Desktop-App.",
@@ -43,6 +49,8 @@
 		"sendThisTicket": "Senden Sie dieses Ticket an die Person, die Ihre Datei empfangen möchte",
 		"keepAppOpen": "Lassen Sie diese App geöffnet, während andere Ihre Dateien herunterladen",
 		"fileLabel": "Datei:",
+		"activeTransfer": "{{count}} transfer in progress",
+		"activeTransfers": "{{count}} transfers in progress",
 		"listeningForConnection": "Warte auf Verbindung",
 		"sharingInProgress": "Freigabe läuft",
 		"transferCompleted": "Übertragung abgeschlossen",

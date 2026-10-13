@@ -1,5 +1,11 @@
 {
-	"appTitle": "DashBeam",
+	"appTitle": "BLyNC",
+	"brand": {
+		"name": "BLyNC",
+		"tagline": "Peer-to-peer file transfer",
+		"poweredBy": "Based on DashBeam",
+		"openSource": "Open source, end-to-end encrypted, no accounts."
+	},
 	"send": "Yuborish",
 	"webPreview": {
 		"banner": "Ko'rib chiqish rejimi - fayl uzatish desktop ilovasini talab qiladi.",
@@ -43,6 +49,8 @@
 		"sendThisTicket": "Ushbu ticketni faylingizni qabul qiladigan kishiga yuboring",
 		"keepAppOpen": "Boshqalar fayllaringizni yuklab olayotganda ilovani ochiq qoldiring",
 		"fileLabel": "Fayl:",
+		"activeTransfer": "{{count}} transfer in progress",
+		"activeTransfers": "{{count}} transfers in progress",
 		"listeningForConnection": "Ulanish kutilmoqda",
 		"sharingInProgress": "Ulashish davom etmoqda",
 		"transferCompleted": "Uzatish yakunlandi",

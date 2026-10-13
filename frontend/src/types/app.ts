@@ -2,6 +2,7 @@ export type AppTheme =
 	| 'auto'
 	| 'light'
 	| 'dark'
+	| 'blync'
 	| 'midnight'
 	| 'paper'
 	| 'nord'
@@ -23,6 +24,7 @@ export const APP_THEMES: AppTheme[] = [
 	'auto',
 	'light',
 	'dark',
+	'blync',
 	'midnight',
 	'paper',
 	'nord',
@@ -42,6 +44,7 @@ export const APP_THEMES: AppTheme[] = [
 ]
 
 export const NAMED_THEMES = [
+	'blync',
 	'midnight',
 	'paper',
 	'nord',
@@ -65,6 +68,7 @@ export type NamedTheme = (typeof NAMED_THEMES)[number]
 /** Themes that use the dark surface base (`.dark` class). */
 export const DARK_BASE_THEMES = new Set<AppTheme>([
 	'dark',
+	'blync',
 	'midnight',
 	'dim',
 	'night',
@@ -80,6 +84,7 @@ export const THEME_LABELS: Record<AppTheme, string> = {
 	auto: 'Auto',
 	light: 'Light',
 	dark: 'Dark',
+	blync: 'BLyNC',
 	midnight: 'Midnight',
 	paper: 'Paper',
 	nord: 'Nord',

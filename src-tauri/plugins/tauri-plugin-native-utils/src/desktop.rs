@@ -14,6 +14,13 @@ pub fn init<R: Runtime, C: DeserializeOwned>(
 pub struct NativeUtils<R: Runtime>(AppHandle<R>);
 
 impl<R: Runtime> NativeUtils<R> {
+    /// A no-op off Android: desktop windows own their own chrome.
+    pub fn set_system_bar_theme(&self, _args: SystemBarTheme) -> crate::Result<()> {
+        Ok(())
+    }
+}
+
+impl<R: Runtime> NativeUtils<R> {
     pub fn select_download_folder(&self) -> crate::Result<SelectDonwloadFolderResponse> {
         Err(crate::Error::UnsupportedPlafrormError)
     }

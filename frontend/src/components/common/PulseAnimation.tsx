@@ -2,6 +2,8 @@ import { useLottie } from 'lottie-react'
 import pulseAnimationOriginal from '../../assets/pulse.json'
 import { useMemo } from 'react'
 import { cn } from '@/lib/utils'
+import { resolveCssColor } from '@/lib/cssColor'
+import { useThemeStore } from '@/store'
 
 interface PulseAnimationProps {
 	isTransporting: boolean
@@ -9,6 +11,10 @@ interface PulseAnimationProps {
 	className?: string
 	size?: number
 }
+
+/** Pre-theme fallback, kept so a colour we cannot parse never renders black. */
+const FALLBACK_ACTIVE: [number, number, number, number] = [0.714, 1, 0, 0.687]
+const FALLBACK_IDLE: [number, number, number, number] = [0.63, 0.66, 0.61, 0.9]
 
 function modifyAnimationColor(animationData: any, color: number[]) {
 	const cloned = JSON.parse(JSON.stringify(animationData))
@@ -38,19 +44,20 @@ export function PulseAnimation({
 	className = '',
 	size = 180,
 }: PulseAnimationProps) {
-	const animationData = useMemo(() => {
-		let color: number[]
+	// Lottie cannot read a CSS variable, so the colour is sampled out of the
+	// document. That also means it has to be re-sampled when the theme changes,
+	// or a user who switches palette mid-transfer keeps the previous hue.
+	const activeTheme = useThemeStore((state) => state.activeTheme)
 
-		if (isTransporting || hasActiveConnections) {
-			// Active transfer or active connections: green
-			color = [37 / 255, 211 / 255, 101 / 255, 0.687]
-		} else {
-			// Waiting/idle: gray
-			color = [183 / 255, 183 / 255, 183 / 255, 1]
-		}
+	// biome-ignore lint/correctness/useExhaustiveDependencies: activeTheme is not read as a value, it signals that the DOM custom properties changed and resolveCssColor must re-sample them
+	const animationData = useMemo(() => {
+		const active = isTransporting || hasActiveConnections
+		const color = active
+			? (resolveCssColor('--primary') ?? FALLBACK_ACTIVE)
+			: (resolveCssColor('--muted-foreground') ?? FALLBACK_IDLE)
 
 		return modifyAnimationColor(pulseAnimationOriginal, color)
-	}, [isTransporting, hasActiveConnections])
+	}, [isTransporting, hasActiveConnections, activeTheme])
 
 	const { View } = useLottie({
 		animationData,

@@ -70,18 +70,19 @@ export function Sender({ onTransferStateChange }: SenderProps) {
 	}, [viewState, isBroadcastMode, setIsBroadcastMode])
 
 	return (
-		<div className="p-0 sm:p-6 space-y-6 relative h-[65dvh] sm:h-112 overflow-y-auto flex flex-col">
+		<div className="p-0 sm:p-6 space-y-5 relative h-[62dvh] sm:h-112 overflow-y-auto flex flex-col">
 			{/* IDLE state: Show file selection UI */}
 			{viewState === 'IDLE' && (
 				<>
-					<div className="text-center">
-						<h2 className="text-xl font-semibold mb-2">
-							{t('common:sender.title')}
-						</h2>
-						<p className="text-sm text-muted-foreground">
-							{t('common:sender.subtitle')}
-						</p>
-					</div>
+					{/*
+					  No heading here: the tab strip directly above already labels
+					  this panel and is what a screen reader announces for it, so a
+					  second "Send" was costing a phone ~40px of the viewport the
+					  picker and the primary action need.
+					*/}
+					<p className="text-center text-sm text-muted-foreground text-pretty">
+						{t('common:sender.subtitle')}
+					</p>
 					<div className="space-y-4 flex-1 flex flex-col">
 						<DragDrop
 							onFileSelect={handleFileSelect}

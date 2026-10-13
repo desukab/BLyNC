@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils'
+import { useTranslation } from '@/i18n'
 
 interface StatusIndicatorProps {
 	isCompleted: boolean
@@ -15,30 +16,40 @@ export function StatusIndicator({
 	activeConnectionCount = 0,
 	isBroadcastMode = false,
 }: StatusIndicatorProps) {
-	// In broadcast mode, show green when there are active connections
-	// Use activeConnectionCount if available, otherwise show connection info if count > 0
+	const { t } = useTranslation()
+	// In broadcast mode, show the live connection count once anyone is actually
+	// pulling; below that the sender's own status text is the more useful line.
 	const hasActiveConnections = isBroadcastMode && activeConnectionCount > 0
-	const displayStatusText =
-		isBroadcastMode && activeConnectionCount > 0
-			? `${activeConnectionCount} ${activeConnectionCount === 1 ? 'transfer' : 'transfers'} in progress`
-			: statusText
+	const displayStatusText = hasActiveConnections
+		? t(
+				activeConnectionCount === 1
+					? 'common:sender.activeTransfer'
+					: 'common:sender.activeTransfers',
+				{ count: activeConnectionCount }
+			)
+		: statusText
+
+	// Semantic tokens rather than a fixed hue: `success` is the one that stays
+	// legible in all nineteen palettes, and it is the only status colour the
+	// design language spends a hue on.
+	const isLive = isCompleted || hasActiveConnections || isTransporting
 
 	return (
-		<div className="flex items-center mb-2">
-			<div
+		<div className="mb-2 flex items-center gap-2">
+			<span
+				aria-hidden
 				className={cn(
-					'relative size-2 rounded-full bg-gray-500 before:absolute before:inset-0 before:animate-ping before:rounded-full before:bg-gray-400 before:opacity-75 mr-2',
-					{
-						'bg-emerald-500 before:bg-emerald-400':
-							isCompleted || hasActiveConnections || isTransporting,
-					}
+					'size-2 shrink-0 rounded-full bg-muted-foreground/60',
+					'before:absolute before:inset-0 before:animate-ping before:rounded-full before:opacity-75',
+					isLive ? 'bg-success before:bg-success' : 'before:bg-muted-foreground'
 				)}
-			></div>
+			/>
 			<p
-				className={cn('text-sm font-medium text-foreground', {
-					'text-emerald-600 dark:text-emerald-400':
-						isCompleted || hasActiveConnections || isTransporting,
-				})}
+				className={cn(
+					'text-sm font-medium text-foreground',
+					isLive && 'text-success'
+				)}
+				aria-live="polite"
 			>
 				{displayStatusText}
 			</p>

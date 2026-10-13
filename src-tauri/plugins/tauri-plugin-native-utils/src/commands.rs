@@ -55,6 +55,14 @@ pub(crate) async fn get_window_insets<R: Runtime>(app: AppHandle<R>) -> Result<W
 }
 
 #[command]
+pub(crate) async fn set_system_bar_theme<R: Runtime>(
+    app: AppHandle<R>,
+    args: SystemBarTheme,
+) -> Result<()> {
+    app.native_utils().set_system_bar_theme(args)
+}
+
+#[command]
 pub(crate) async fn open_download_folder<R: Runtime>(
     app: AppHandle<R>,
     tree_uri: String,

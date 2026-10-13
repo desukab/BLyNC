@@ -1,5 +1,19 @@
 **Language:** English | [中文](docs/readme/README.zh-CN.md) | [Русский](docs/readme/README.ru.md) | [Português](docs/readme/README.pt-BR.md) | [Español](docs/readme/README.es.md) | [Deutsch](docs/readme/README.de.md) | [Français](docs/readme/README.fr.md) | [日本語](docs/readme/README.ja.md) | [한국어](docs/readme/README.ko.md) | [Polski](docs/readme/README.pl.md) | [العربية](docs/readme/README.ar.md)
 
+> **BLyNC notice**
+>
+> BLyNC is a branded distribution of [DashBeam](https://github.com/tonyantony300/dashbeam)
+> by Tony Antony. All code in this repository is the work of the DashBeam
+> authors and contributors, modified by the BLyNC maintainers for presentation,
+> branding and the Android experience.
+>
+> DashBeam and BLyNC are both licensed under the
+> [GNU Affero General Public License v3.0](LICENSE). That licence is unchanged,
+> and BLyNC keeps DashBeam's copyright notices and attribution intact. BLyNC
+> is not an official DashBeam release; please report upstream bugs upstream.
+>
+> Upstream project: <https://github.com/tonyantony300/dashbeam>
+
 <div align="center">
 
 # File transfer doesn't need to be complicated

@@ -26,6 +26,14 @@ pub fn init<R: Runtime, C: DeserializeOwned>(
 pub struct NativeUtils<R: Runtime>(PluginHandle<R>);
 
 impl<R: Runtime> NativeUtils<R> {
+    pub fn set_system_bar_theme(&self, args: SystemBarTheme) -> crate::Result<()> {
+        self.0
+            .run_mobile_plugin("set_system_bar_theme", args)
+            .map_err(Into::into)
+    }
+}
+
+impl<R: Runtime> NativeUtils<R> {
     pub fn select_download_folder(&self) -> crate::Result<SelectDonwloadFolderResponse> {
         self.0
             .run_mobile_plugin("select_download_folder", ())

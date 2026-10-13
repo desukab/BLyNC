@@ -6,7 +6,7 @@ interface TitleBarProps {
 	title?: string
 }
 
-export const TitleBar = ({ title = 'ALT-SENDME' }: TitleBarProps) => {
+export const TitleBar = ({ title = 'BLyNC' }: TitleBarProps) => {
 	if (!IS_TAURI) {
 		return null
 	}

@@ -1,5 +1,11 @@
 {
-	"appTitle": "DashBeam",
+	"appTitle": "BLyNC",
+	"brand": {
+		"name": "BLyNC",
+		"tagline": "Peer-to-peer file transfer",
+		"poweredBy": "Based on DashBeam",
+		"openSource": "Open source, end-to-end encrypted, no accounts."
+	},
 	"send": "Пошаљи",
 	"webPreview": {
 		"banner": "Režim pregleda - prenos datoteka zahteva desktop aplikaciju.",
@@ -43,6 +49,8 @@
 		"sendThisTicket": "Пошаљи ову карту особи која жели да прими твоју датотеку",
 		"keepAppOpen": "Држи апликацију отвореном док други преузимају твоје датотеке",
 		"fileLabel": "Датотека:",
+		"activeTransfer": "{{count}} transfer in progress",
+		"activeTransfers": "{{count}} transfers in progress",
 		"listeningForConnection": "Чекам повезивање",
 		"sharingInProgress": "Дељење је у току",
 		"transferCompleted": "Дељење је завршено",

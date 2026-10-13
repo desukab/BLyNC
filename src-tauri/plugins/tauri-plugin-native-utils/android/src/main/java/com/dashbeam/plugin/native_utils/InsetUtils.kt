@@ -4,6 +4,7 @@ import android.app.Activity
 import androidx.annotation.Keep
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 
 @Keep
 data class WindowInsetsResponse(
@@ -37,4 +38,21 @@ fun Activity.readWindowInsets(): WindowInsetsResponse {
         bottom = safeArea.bottom / density.toDouble(),
         left = safeArea.left / density.toDouble(),
     )
+}
+
+/**
+ * Matches the status and navigation bar icons to the theme the web layer is
+ * currently rendering.
+ *
+ * `enableEdgeToEdge()` picks its icon tint from the *system* dark mode at
+ * activity creation, so a user who runs a light app theme on a phone set to
+ * dark mode gets near-black icons over a near-white bar and vice versa. The
+ * bars are transparent under edge-to-edge, so the only thing that decides
+ * whether the clock is readable is what the WebView painted underneath it.
+ */
+fun Activity.applySystemBarTheme(dark: Boolean) {
+    val controller = WindowInsetsControllerCompat(window, window.decorView)
+    val useDarkIcons = !dark
+    controller.isAppearanceLightStatusBars = useDarkIcons
+    controller.isAppearanceLightNavigationBars = useDarkIcons
 }

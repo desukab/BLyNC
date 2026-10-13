@@ -52,27 +52,30 @@ export function Receiver({ onTransferStateChange }: ReceiverProps) {
 	}, [isReceiving, onTransferStateChange])
 
 	return (
-		<div className="p-2 sm:p-6 space-y-6 relative h-[62dvh] sm:h-112 overflow-y-auto flex flex-col">
+		<div className="p-2 sm:p-6 space-y-5 relative h-[62dvh] sm:h-112 overflow-y-auto flex flex-col">
 			{!isReceiving ? (
 				<>
-					<div className="text-center">
-						<div className="flex items-center justify-center gap-2 mb-2">
-							<h2 className="text-xl font-semibold">
-								{t('common:receiver.title')}
-							</h2>
-							<Button
-								size="icon-sm"
-								type="button"
-								variant="ghost"
-								onClick={() => setShowInstructionsDialog(true)}
-								className="absolute top-0 right-0 sm:top-6 sm:right-6"
-							>
-								<Info />
-							</Button>
-						</div>
-						<p className="text-sm text-muted-foreground">
+					{/*
+					  Same reasoning as the Send panel: the tab strip already
+					  names this region, so the copy below carries the detail and
+					  the "how do I receive?" affordance sits on the same baseline
+					  instead of floating against an unpositioned ancestor.
+					*/}
+					<div className="flex items-start justify-between gap-2">
+						<p className="text-sm text-muted-foreground text-pretty">
 							{t('common:receiver.subtitle')}
 						</p>
+						<Button
+							size="icon-sm"
+							type="button"
+							variant="ghost"
+							onClick={() => setShowInstructionsDialog(true)}
+							className="-mr-1 shrink-0 text-muted-foreground"
+							aria-label={t('common:receiver.howToReceive')}
+							title={t('common:receiver.howToReceive')}
+						>
+							<Info />
+						</Button>
 					</div>
 
 					<div className="space-y-4 flex-1 flex flex-col">

@@ -11,6 +11,7 @@ permissions = [
     "allow-export-to-media-store",
     "allow-open-download-target",
     "allow-get-window-insets",
+    "allow-set-system-bar-theme",
     "allow-start-presence-service",
     "allow-stop-presence-service",
     "allow-write-text-to-uri",

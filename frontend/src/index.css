@@ -208,7 +208,7 @@
 
 @layer utilities {
 	:root {
-		--radius: 0.625rem;
+		--radius: 0.75rem;
 		--font-size-base: 15px;
 		--app-primary: rgba(37, 211, 101, 0.687);
 		--app-accent-light: rgb(45, 120, 220);
@@ -218,20 +218,111 @@
 	}
 }
 
+/*
+  ---break---
+  BLyNC brand tokens
+
+  These are the literal brand colours from the BLyNC identity. They are kept
+  separate from the shadcn-style `--primary` / `--accent` scale on purpose:
+  neon lime is too bright to survive as a light-mode text or hairline colour,
+  so every functional surface reads the semantic scale instead and only brand
+  moments (wordmark, launcher mark, splash) touch `--blync-*` directly.
+  ---break---
+*/
+:root {
+	--blync-void: #080908;
+	--blync-surface-1: #111310;
+	--blync-surface-2: #191c17;
+	--blync-lime: #b6ff00;
+	--blync-blue: #00b0ff;
+
+	/*
+	  Functional UI never embeds a webfont: the stack below resolves to the
+	  native UI face on every supported target (SF on iOS/macOS, Roboto on
+	  Android, Segoe UI Variable on Windows), which is both the most legible
+	  option and the only one with no licensing or payload cost.
+	*/
+	--font-sans:
+		"Inter var", "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text",
+		"Segoe UI Variable Text", "Segoe UI", Roboto, "Helvetica Neue", Ubuntu,
+		Cantarell, "Noto Sans", sans-serif;
+	/* Same family, optically tightened for headings and the wordmark. */
+	--font-heading:
+		"Inter var", "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display",
+		"Segoe UI Variable Display", "Segoe UI", Roboto, "Helvetica Neue", Ubuntu,
+		Cantarell, "Noto Sans", sans-serif;
+	--font-mono:
+		ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Mono", Menlo, Consolas,
+		"Roboto Mono", monospace;
+
+	/*
+	  One easing ramp for the whole app. Short, decisive motion reads as
+	  "considered"; anything longer reads as decoration.
+	*/
+	--ease-standard: cubic-bezier(0.2, 0, 0, 1);
+	--ease-emphasized: cubic-bezier(0.32, 0.72, 0, 1);
+	--duration-instant: 90ms;
+	--duration-fast: 150ms;
+	--duration-normal: 220ms;
+}
+
 @layer base {
 	body {
 		margin: 0;
 		padding: 0;
-		font-family:
-			-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-			"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-			sans-serif;
+		font-family: var(--font-sans);
+		/*
+		  Android WebView and Chromium both ship a system font that has no
+		  true bold, so `font-weight: 600` would render as a synthetic smear.
+		  Variable faces pick the real weight up; everything else degrades to
+		  the 700 master, which is what the rest of the scale already assumes.
+		*/
+		font-synthesis-weight: auto;
+		text-rendering: optimizeLegibility;
+		font-feature-settings:
+			"cv02" 1,
+			"cv03" 1,
+			"cv04" 1,
+			"ss01" 1,
+			"tnum" 1;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		background: var(--background);
 		color: var(--foreground);
 		min-height: 100vh;
 		overflow: hidden;
+		/*
+		  Respect the OS text-size setting. Without this Android WebView
+		  ignores it entirely and the UI stays at 100% for every user who has
+		  asked the system for larger text.
+		*/
+		-webkit-text-size-adjust: 100%;
+		text-size-adjust: 100%;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4 {
+		font-family: var(--font-heading);
+		letter-spacing: -0.015em;
+	}
+
+	/*
+	  Native controls should follow the app, not the platform default, or the
+	  select/checkbox/scrollbar islands read as foreign on Android.
+	*/
+	button,
+	input,
+	select,
+	textarea {
+		font: inherit;
+		color: inherit;
+	}
+
+	::selection {
+		background: color-mix(in srgb, var(--blync-lime) 28%, transparent);
+		color: var(--foreground);
 	}
 
 	html {
@@ -362,10 +453,22 @@
 	}
 }
 
+/*
+  Transitions are listed property-by-property rather than `all`: `all` makes
+  every layout-affecting property animatable, which is what produced the
+  footer's buttons visibly reflowing mid-tap. Anything that genuinely needs to
+  animate geometry opts in with an explicit `transition-transform` etc.
+*/
 button,
 input,
+select,
 textarea {
-	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	transition:
+		color var(--duration-fast) var(--ease-standard),
+		background-color var(--duration-fast) var(--ease-standard),
+		border-color var(--duration-fast) var(--ease-standard),
+		box-shadow var(--duration-fast) var(--ease-standard),
+		opacity var(--duration-fast) var(--ease-standard);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -388,47 +491,49 @@ textarea {
 	--safe-area-right: var(--native-inset-right, 0px);
 	--safe-area-bottom: var(--native-inset-bottom, 0px);
 	--safe-area-left: var(--native-inset-left, 0px);
-	--radius: 0.625rem;
-	--background: var(--color-white);
-	--foreground: var(--color-neutral-800);
-	--card: var(--color-white);
-	--card-foreground: var(--color-neutral-800);
-	--popover: var(--color-white);
-	--popover-foreground: var(--color-neutral-800);
-	--primary: var(--color-neutral-800);
-	--primary-foreground: var(--color-neutral-50);
-	--secondary: --alpha(var(--color-black) / 4%);
-	--secondary-foreground: var(--color-neutral-800);
-	--muted: --alpha(var(--color-black) / 4%);
-	--muted-foreground: color-mix(
-		in srgb,
-		var(--color-neutral-500) 90%,
-		var(--color-black)
-	);
-	--accent: --alpha(var(--color-black) / 4%);
-	--accent-foreground: var(--color-neutral-800);
-	--destructive: var(--color-red-500);
-	--border: --alpha(var(--color-black) / 8%);
-	--input: --alpha(var(--color-black) / 10%);
-	--ring: var(--color-neutral-400);
+	--radius: 0.75rem;
+	/*
+	  Light appearance. Deliberately neutral rather than lime-forward: at ~19:1
+	  against its own luminance the brand lime is unusable for text or hairline
+	  borders on a light background, so light mode keeps a near-black primary
+	  and reserves lime for the brand moments only.
+	*/
+	--background: #fbfcfa;
+	--foreground: #14160f;
+	--card: #ffffff;
+	--card-foreground: #14160f;
+	--popover: #ffffff;
+	--popover-foreground: #14160f;
+	--primary: #14160f;
+	--primary-foreground: #f7f9f4;
+	--secondary: #f0f2ec;
+	--secondary-foreground: #14160f;
+	--muted: #f0f2ec;
+	--muted-foreground: #5d6357;
+	--accent: #eaeee2;
+	--accent-foreground: #14160f;
+	--destructive: #d02b2b;
+	--border: --alpha(var(--color-black) / 9%);
+	--input: --alpha(var(--color-black) / 12%);
+	--ring: #6b7361;
 	--chart-1: oklch(0.646 0.222 41.116);
 	--chart-2: oklch(0.6 0.118 184.704);
 	--chart-3: oklch(0.398 0.07 227.392);
 	--chart-4: oklch(0.828 0.189 84.429);
 	--chart-5: oklch(0.769 0.188 70.08);
-	--sidebar: oklch(0.985 0 0);
-	--sidebar-foreground: oklch(0.145 0 0);
-	--sidebar-primary: oklch(0.205 0 0);
-	--sidebar-primary-foreground: oklch(0.985 0 0);
-	--sidebar-accent: oklch(0.97 0 0);
-	--sidebar-accent-foreground: oklch(0.205 0 0);
+	--sidebar: #f4f6f0;
+	--sidebar-foreground: #14160f;
+	--sidebar-primary: #14160f;
+	--sidebar-primary-foreground: #f7f9f4;
+	--sidebar-accent: #e8ece0;
+	--sidebar-accent-foreground: #14160f;
 	--sidebar-border: oklch(0.922 0 0);
-	--sidebar-ring: oklch(0.708 0 0);
+	--sidebar-ring: #6b7361;
 	--destructive-foreground: var(--color-red-700);
 	--info: var(--color-blue-500);
 	--info-foreground: var(--color-blue-700);
-	--success: var(--color-emerald-500);
-	--success-foreground: var(--color-emerald-700);
+	--success: var(--color-emerald-600);
+	--success-foreground: var(--color-emerald-800);
 	--warning: var(--color-amber-500);
 	--warning-foreground: var(--color-amber-700);
 }
@@ -465,57 +570,54 @@ textarea {
   ---break---
 */
 
-.dark {
-	--background: color-mix(
-		in srgb,
-		var(--color-neutral-950) 95%,
-		var(--color-white)
-	);
-	--foreground: var(--color-neutral-100);
-	--card: color-mix(in srgb, var(--background) 98%, var(--color-white));
-	--card-foreground: var(--color-neutral-100);
-	--popover: color-mix(in srgb, var(--background) 98%, var(--color-white));
-	--popover-foreground: var(--color-neutral-100);
-	--primary: var(--color-neutral-100);
-	--primary-foreground: var(--color-neutral-800);
-	--secondary: --alpha(var(--color-white) / 4%);
-	--secondary-foreground: var(--color-neutral-100);
-	--muted: --alpha(var(--color-white) / 4%);
-	--muted-foreground: color-mix(
-		in srgb,
-		var(--color-neutral-500) 90%,
-		var(--color-white)
-	);
-	--accent: --alpha(var(--color-white) / 4%);
-	--accent-foreground: var(--color-neutral-100);
-	--destructive: color-mix(
-		in srgb,
-		var(--color-red-500) 90%,
-		var(--color-white)
-	);
-	--border: --alpha(var(--color-white) / 6%);
-	--input: --alpha(var(--color-white) / 8%);
-	--ring: var(--color-neutral-500);
-	--chart-1: oklch(0.488 0.243 264.376);
-	--chart-2: oklch(0.696 0.17 162.48);
+/*
+  The default dark appearance, and the BLyNC identity.
+
+  Three surfaces, deliberately close in value so elevation is felt rather than
+  seen: `#080908` page, `#111310` card, `#191c17` raised/hover. Lime is the
+  primary so that primary actions, selected states and the focus ring are the
+  only saturated things on screen; everything else is a neutral.
+*/
+.dark,
+[data-theme="blync"] {
+	--background: #080908;
+	--foreground: #f4f6f2;
+	--card: #111310;
+	--card-foreground: #f4f6f2;
+	--popover: #111310;
+	--popover-foreground: #f4f6f2;
+	--primary: #b6ff00;
+	--primary-foreground: #0b0d05;
+	--secondary: #191c17;
+	--secondary-foreground: #f4f6f2;
+	--muted: #161915;
+	--muted-foreground: #a1a89c;
+	--accent: #1c2019;
+	--accent-foreground: #f4f6f2;
+	--destructive: #ff5a52;
+	--border: #232720;
+	--input: #2b2f27;
+	--ring: #b6ff00;
+	--chart-1: #b6ff00;
+	--chart-2: #00b0ff;
 	--chart-3: oklch(0.769 0.188 70.08);
 	--chart-4: oklch(0.627 0.265 303.9);
 	--chart-5: oklch(0.645 0.246 16.439);
-	--sidebar: oklch(0.205 0 0);
-	--sidebar-foreground: oklch(0.985 0 0);
-	--sidebar-primary: oklch(0.488 0.243 264.376);
-	--sidebar-primary-foreground: oklch(0.985 0 0);
-	--sidebar-accent: oklch(0.269 0 0);
-	--sidebar-accent-foreground: oklch(0.985 0 0);
-	--sidebar-border: oklch(1 0 0 / 10%);
-	--sidebar-ring: oklch(0.556 0 0);
-	--destructive-foreground: var(--color-red-400);
-	--info: var(--color-blue-500);
-	--info-foreground: var(--color-blue-400);
-	--success: var(--color-emerald-500);
-	--success-foreground: var(--color-emerald-400);
-	--warning: var(--color-amber-500);
-	--warning-foreground: var(--color-amber-400);
+	--sidebar: #0d0f0c;
+	--sidebar-foreground: #f4f6f2;
+	--sidebar-primary: #b6ff00;
+	--sidebar-primary-foreground: #0b0d05;
+	--sidebar-accent: #1c2019;
+	--sidebar-accent-foreground: #f4f6f2;
+	--sidebar-border: #1e221c;
+	--sidebar-ring: #b6ff00;
+	--destructive-foreground: #ff8a84;
+	--info: #00b0ff;
+	--info-foreground: #7ad6ff;
+	--success: #3ddc84;
+	--success-foreground: #7ff0b4;
+	--warning: #ffb020;
+	--warning-foreground: #ffce7a;
 }
 
 /*

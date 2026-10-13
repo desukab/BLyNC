@@ -71,6 +71,16 @@ pub struct WindowInsets {
     pub left: f64,
 }
 
+/// Which surface the web layer is currently painting. Android picks the
+/// status/navigation bar icon tint once, at activity creation, from the *system*
+/// dark mode; under edge-to-edge the bars are transparent, so the app has to
+/// restate it whenever the active theme changes.
+#[derive(Debug, Clone, Copy, Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct SystemBarTheme {
+    pub dark: bool,
+}
+
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ExportToTreeResult {

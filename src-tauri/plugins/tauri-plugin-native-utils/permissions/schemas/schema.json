@@ -427,6 +427,18 @@
           "markdownDescription": "Denies the select_send_folder command without any pre-configured scope."
         },
         {
+          "description": "Enables the set_system_bar_theme command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-set-system-bar-theme",
+          "markdownDescription": "Enables the set_system_bar_theme command without any pre-configured scope."
+        },
+        {
+          "description": "Denies the set_system_bar_theme command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-set-system-bar-theme",
+          "markdownDescription": "Denies the set_system_bar_theme command without any pre-configured scope."
+        },
+        {
           "description": "Enables the start_presence_service command without any pre-configured scope.",
           "type": "string",
           "const": "allow-start-presence-service",
@@ -463,10 +475,10 @@
           "markdownDescription": "Denies the write_text_to_uri command without any pre-configured scope."
         },
         {
-          "description": "Default permissions for the plugin\n#### This default permission set includes:\n\n- `allow-select-download-folder`\n- `allow-select-send-document`\n- `allow-select-send-folder`\n- `allow-consume-share-intent`\n- `allow-cancel-job`\n- `allow-export-to-tree`\n- `allow-open-download-folder`\n- `allow-export-to-media-store`\n- `allow-open-download-target`\n- `allow-get-window-insets`\n- `allow-start-presence-service`\n- `allow-stop-presence-service`\n- `allow-write-text-to-uri`\n- `allow-fetch-update-manifest`",
+          "description": "Default permissions for the plugin\n#### This default permission set includes:\n\n- `allow-select-download-folder`\n- `allow-select-send-document`\n- `allow-select-send-folder`\n- `allow-consume-share-intent`\n- `allow-cancel-job`\n- `allow-export-to-tree`\n- `allow-open-download-folder`\n- `allow-export-to-media-store`\n- `allow-open-download-target`\n- `allow-get-window-insets`\n- `allow-set-system-bar-theme`\n- `allow-start-presence-service`\n- `allow-stop-presence-service`\n- `allow-write-text-to-uri`\n- `allow-fetch-update-manifest`",
           "type": "string",
           "const": "default",
-          "markdownDescription": "Default permissions for the plugin\n#### This default permission set includes:\n\n- `allow-select-download-folder`\n- `allow-select-send-document`\n- `allow-select-send-folder`\n- `allow-consume-share-intent`\n- `allow-cancel-job`\n- `allow-export-to-tree`\n- `allow-open-download-folder`\n- `allow-export-to-media-store`\n- `allow-open-download-target`\n- `allow-get-window-insets`\n- `allow-start-presence-service`\n- `allow-stop-presence-service`\n- `allow-write-text-to-uri`\n- `allow-fetch-update-manifest`"
+          "markdownDescription": "Default permissions for the plugin\n#### This default permission set includes:\n\n- `allow-select-download-folder`\n- `allow-select-send-document`\n- `allow-select-send-folder`\n- `allow-consume-share-intent`\n- `allow-cancel-job`\n- `allow-export-to-tree`\n- `allow-open-download-folder`\n- `allow-export-to-media-store`\n- `allow-open-download-target`\n- `allow-get-window-insets`\n- `allow-set-system-bar-theme`\n- `allow-start-presence-service`\n- `allow-stop-presence-service`\n- `allow-write-text-to-uri`\n- `allow-fetch-update-manifest`"
         }
       ]
     }

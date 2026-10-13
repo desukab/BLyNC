@@ -46,6 +46,7 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             commands::export_to_media_store,
             commands::open_download_target,
             commands::get_window_insets,
+            commands::set_system_bar_theme,
             commands::start_presence_service,
             commands::stop_presence_service,
             commands::write_text_to_uri,

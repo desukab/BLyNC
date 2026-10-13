@@ -59,6 +59,12 @@ class OpenDownloadFolderArgs {
 }
 
 @InvokeArg
+class SystemBarThemeArgs {
+    /** True when the web layer is currently painting a dark surface. */
+    var dark: Boolean = false
+}
+
+@InvokeArg
 class ExportToMediaStoreArgs {
     var sourceDir: String = ""
 }
@@ -209,6 +215,19 @@ class NativeUtils(private val activity: Activity) : Plugin(activity) {
                 invoke.resolveObject(activity.readWindowInsets())
             } catch (e: Exception) {
                 invoke.reject(e.message ?: "Failed to read window insets")
+            }
+        }
+    }
+
+    @Command
+    fun set_system_bar_theme(invoke: Invoke) {
+        val args = invoke.parseArgs(SystemBarThemeArgs::class.java)
+        activity.runOnUiThread {
+            try {
+                activity.applySystemBarTheme(args.dark)
+                invoke.resolve()
+            } catch (e: Exception) {
+                invoke.reject(e.message ?: "Failed to apply system bar theme")
             }
         }
     }

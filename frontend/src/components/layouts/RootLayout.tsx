@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom'
 
 import { AppFooter } from '../AppFooter'
+import { AppHeader } from './AppHeader'
 import { TitleBar } from '../TitleBar'
 import { useTranslation } from '@/i18n'
 import { AppUpdater } from '../common/AppUpdater'
@@ -52,6 +53,7 @@ export function RootLayout() {
 				{IS_MACOS && (
 					<div className="absolute w-full h-10 z-10" data-tauri-drag-region />
 				)}
+				<AppHeader />
 				<Outlet />
 				<AppFooter />
 			</main>

@@ -1,11 +1,11 @@
 {
-	"name": "DashBeam - Peer-to-peer file transfer",
-	"short_name": "DashBeam",
-	"description": "Open-source peer-to-peer file transfer in the browser. No accounts, unlimited size, end-to-end encrypted with Iroh.",
+	"name": "BLyNC - Peer-to-peer file transfer",
+	"short_name": "BLyNC",
+	"description": "Open-source peer-to-peer file transfer. No accounts, unlimited size, end-to-end encrypted. Based on DashBeam.",
 	"start_url": "/",
 	"display": "standalone",
-	"background_color": "#ffffff",
-	"theme_color": "#ffffff",
+	"background_color": "#080908",
+	"theme_color": "#080908",
 	"orientation": "any",
 	"icons": [
 		{

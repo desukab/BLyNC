@@ -6,7 +6,12 @@ import {
 import { handleExternalLinkClick } from '@/lib/openExternalUrl'
 import { useTranslation } from '../../i18n'
 import { cn } from '../../lib/utils'
-import { LICENSE_LINK, PRIVACY_LINK, VERSION_DISPLAY } from '../../lib/version'
+import {
+	GITHUB_REPO_LINK,
+	LICENSE_LINK,
+	PRIVACY_LINK,
+	VERSION_DISPLAY,
+} from '../../lib/version'
 import { BackArrowIcon } from '../back-arrow-icon'
 import { LazyIcon } from '../icons'
 import { Badge } from '../ui/badge'
@@ -170,33 +175,55 @@ function SettingSidebarFooter({
 	return (
 		<SidebarFooter
 			className={cn(
-				'text-xs flex-row items-center text-muted-foreground justify-around',
+				'flex-col items-center gap-1 text-center text-xs text-muted-foreground',
 				className
 			)}
 			{...props}
 		>
-			{/*TODO: Add link*/}
-			<span>{VERSION_DISPLAY}</span>
-			<div className="size-1 rounded-full bg-muted-foreground" />
-			<a
-				className="hover:underline hover:text-foreground transition-color"
-				href={PRIVACY_LINK}
-				onClick={(event) => handleExternalLinkClick(event, PRIVACY_LINK)}
-				target="_blank"
-				rel="noopener noreferrer"
-			>
-				{t('privacyPolicy')}
-			</a>
-			<div className="size-1 rounded-full bg-muted-foreground" />
-			<a
-				className="hover:underline hover:text-foreground transition-color"
-				href={LICENSE_LINK}
-				onClick={(event) => handleExternalLinkClick(event, LICENSE_LINK)}
-				target="_blank"
-				rel="noopener noreferrer"
-			>
-				{t('license')}
-			</a>
+			{/*
+			  Attribution lives here rather than in the app footer: AGPL-3.0
+			  requires the work it is derived from to stay credited, and the
+			  About corner of Settings is where someone looks for it. The old
+			  TODO asking for exactly this link is now answered.
+			*/}
+			<div className="flex flex-wrap items-center justify-center gap-x-1.5 gap-y-0.5">
+				<span>{VERSION_DISPLAY}</span>
+				<span aria-hidden className="text-muted-foreground/50">
+					·
+				</span>
+				<a
+					className="rounded-sm outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
+					href={GITHUB_REPO_LINK}
+					onClick={(event) => handleExternalLinkClick(event, GITHUB_REPO_LINK)}
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					{t('brand.poweredBy')}
+				</a>
+			</div>
+			<div className="flex flex-wrap items-center justify-center gap-x-1.5 gap-y-0.5">
+				<a
+					className="rounded-sm outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
+					href={PRIVACY_LINK}
+					onClick={(event) => handleExternalLinkClick(event, PRIVACY_LINK)}
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					{t('privacyPolicy')}
+				</a>
+				<span aria-hidden className="text-muted-foreground/50">
+					·
+				</span>
+				<a
+					className="rounded-sm outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
+					href={LICENSE_LINK}
+					onClick={(event) => handleExternalLinkClick(event, LICENSE_LINK)}
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					{t('license')}
+				</a>
+			</div>
 		</SidebarFooter>
 	)
 }
