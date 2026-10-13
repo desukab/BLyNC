@@ -634,7 +634,8 @@
 			"title": "Transfer history",
 			"description": "Keep a record of what you send and receive on this device.",
 			"toggle": "Record transfers",
-			"toggleHint": "Turning this off stops new entries. Anything already recorded stays until you clear it."
+			"toggleHint": "Turning this off stops new entries. Anything already recorded stays until you clear it.",
+			"storedEntries": "Stored transfers"
 		},
 		"errorTitle": "History unavailable",
 		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up."

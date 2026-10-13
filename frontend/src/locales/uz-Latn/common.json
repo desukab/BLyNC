@@ -454,7 +454,10 @@
 	"comingSoon": "Tez orada",
 	"history": {
 		"errorTitle": "History unavailable",
-		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up."
+		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up.",
+		"settings": {
+			"storedEntries": "Stored transfers"
+		}
 	},
 	"retry": "Retry"
 }

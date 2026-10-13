@@ -59,20 +59,39 @@ export function AppFooter({
 
 	return (
 		<div
-			className="w-full min-h-10 items-center flex bg-background/50 border-t border-border backdrop-blur-md"
+			className={cn(
+				'flex w-full items-center border-t border-border bg-background/50 backdrop-blur-md',
+				// In minimal mode this collapses to a single hairline-thin line
+				// above the tab bar, and does NOT take the bottom safe-area
+				// inset — the tab bar directly below already consumes it, and
+				// both claiming it wasted ~24px of an 800px screen.
+				minimal ? 'min-h-9 justify-center gap-2 py-1' : 'min-h-10'
+			)}
 			style={{
-				paddingTop: '0.5rem',
-				paddingBottom: 'calc(0.5rem + var(--safe-area-bottom))',
+				paddingTop: minimal ? '0.25rem' : '0.5rem',
+				paddingBottom: minimal
+					? '0.25rem'
+					: 'calc(0.5rem + var(--safe-area-bottom))',
 				paddingLeft: 'calc(1rem + var(--safe-area-left))',
 				paddingRight: 'calc(1rem + var(--safe-area-right))',
 			}}
 		>
-			<div className="space-x-2 flex-1 w-full flex items-center">
-				<span className="text-sm text-muted-foreground ml-1">
+			<div
+				className={cn(
+					'space-x-2 flex-1 w-full flex items-center',
+					minimal && 'justify-center space-x-1'
+				)}
+			>
+				<span
+					className={cn(
+						'text-muted-foreground ml-1',
+						minimal ? 'text-caption' : 'text-sm'
+					)}
+				>
 					{VERSION_DISPLAY}
 				</span>
 				<Separator
-					className={cn('h-6', minimal ? 'block' : 'hidden sm:block')}
+					className={cn('h-6', minimal ? 'hidden' : 'hidden sm:block')}
 					orientation="vertical"
 				/>
 
@@ -90,8 +109,14 @@ export function AppFooter({
 								variant: 'outline',
 							}),
 							// With the tab bar taking over, these are the only
-							// route off-app, so they stay on the phone too.
-							minimal ? 'inline-flex' : 'hidden sm:inline-flex'
+							// route off-app, so they stay on the phone too — but
+							// they shrink visually so the line stays one line
+							// tall. `buttonVariants` already expands the hit
+							// area to 44px on a coarse pointer, so the smaller
+							// box does not cost reachability.
+							minimal
+								? 'inline-flex size-8 rounded-lg [&_svg]:size-3.5'
+								: 'hidden sm:inline-flex'
 						)}
 					>
 						{contact.icon}

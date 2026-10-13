@@ -494,10 +494,18 @@ export function DevicesSettings() {
 										<p className="shrink-0 font-medium">
 											{t('common:settings.devices.pairingCode')}
 										</p>
-										<div className="flex min-w-0 items-center gap-1.5">
+										{/* A pairing code is a long opaque token: at 751px of
+										    mono type it was being truncated into a ~240px
+										    inline span on a phone, so roughly a third of
+										    the code was visible and the rest could only be
+										    had by copying blind. On a phone it is now a
+										    wrapping block you can read before copying;
+										    desktop keeps the compact inline form where the
+										    rail leaves room. */}
+										<div className="flex min-w-0 flex-1 items-start gap-1.5 sm:flex-none sm:items-center">
 											{displayPairingCode ? (
 												<span
-													className="min-w-0 flex-1 truncate font-mono text-xs text-muted-foreground sm:max-w-64 sm:flex-none sm:text-right"
+													className="min-w-0 flex-1 break-all font-mono text-xs text-muted-foreground sm:max-w-64 sm:flex-none sm:truncate sm:text-right"
 													title={displayPairingCode}
 												>
 													{displayPairingCode}

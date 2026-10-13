@@ -1,14 +1,17 @@
 import { useTranslation } from '../../../i18n'
+import { IS_ANDROID } from '../../../lib/platform'
+import { ToggleGroup, ToggleRow } from '../../ui/toggle-group'
 import { useAppSettingStore } from '../../../store/app-setting'
-import {
-	Frame,
-	FrameDescription,
-	FrameHeader,
-	FramePanel,
-	FrameTitle,
-} from '../../ui/frame'
-import { Switch } from '../../ui/switch'
 
+/**
+ * The relay indicator toggle.
+ *
+ * This switch controls a button in the desktop footer rail. On Android the
+ * footer collapses to a single version/attribution line and does not render
+ * the relay button at all, so leaving the setting on the phone offered a
+ * toggle that changed nothing. The relay status itself is always visible under
+ * Infra, so nothing is hidden by not offering it here.
+ */
 export function RelayStatusSettings() {
 	const { t } = useTranslation()
 	const showRelayStatus = useAppSettingStore((state) => state.showRelayStatus)
@@ -16,27 +19,16 @@ export function RelayStatusSettings() {
 		(state) => state.setShowRelayStatus
 	)
 
+	if (IS_ANDROID) return null
+
 	return (
-		<Frame>
-			<FrameHeader>
-				<FrameTitle>{t('settings.general.relayStatus.title')}</FrameTitle>
-			</FrameHeader>
-			<FramePanel>
-				<div className="flex items-center justify-between">
-					<div className="flex-1">
-						<FrameTitle>
-							{t('settings.general.relayStatus.showToggle.label')}
-						</FrameTitle>
-						<FrameDescription>
-							{t('settings.general.relayStatus.showToggle.description')}
-						</FrameDescription>
-					</div>
-					<Switch
-						checked={showRelayStatus}
-						onCheckedChange={setShowRelayStatus}
-					/>
-				</div>
-			</FramePanel>
-		</Frame>
+		<ToggleGroup label={t('settings.general.relayStatus.title')}>
+			<ToggleRow
+				label={t('settings.general.relayStatus.showToggle.label')}
+				description={t('settings.general.relayStatus.showToggle.description')}
+				checked={showRelayStatus}
+				onCheckedChange={setShowRelayStatus}
+			/>
+		</ToggleGroup>
 	)
 }

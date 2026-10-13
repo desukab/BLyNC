@@ -11,14 +11,8 @@ import {
 	AlertDialogTitle,
 } from '../../ui/alert-dialog'
 import { Button } from '../../ui/button'
-import {
-	Frame,
-	FrameDescription,
-	FrameHeader,
-	FramePanel,
-	FrameTitle,
-} from '../../ui/frame'
-import { Switch } from '../../ui/switch'
+import { ListRow } from '../../ui/surface'
+import { ToggleGroup, ToggleRow } from '../../ui/toggle-group'
 import { toastManager } from '../../ui/toast'
 
 export function TransferHistorySettings() {
@@ -51,38 +45,30 @@ export function TransferHistorySettings() {
 	}
 
 	return (
-		<Frame>
-			<FrameHeader>
-				<FrameTitle>{t('common:history.settings.title')}</FrameTitle>
-			</FrameHeader>
-			<FramePanel className="space-y-4">
-				<div className="flex items-center justify-between gap-4">
-					<div className="flex-1">
-						<FrameTitle>{t('common:history.settings.toggle')}</FrameTitle>
-						<FrameDescription>
-							{t('common:history.settings.toggleHint')}
-						</FrameDescription>
-					</div>
-					<Switch checked={enabled} onCheckedChange={setEnabled} />
-				</div>
+		<>
+			<ToggleGroup label={t('common:history.settings.title')}>
+				<ToggleRow
+					label={t('common:history.settings.toggle')}
+					description={t('common:history.settings.toggleHint')}
+					checked={enabled}
+					onCheckedChange={setEnabled}
+				/>
 
 				{/* Separate from the toggle: turning recording off is not deleting. */}
-				<div className="flex items-center justify-between gap-4 border-t pt-4">
-					<div className="flex-1">
-						<FrameTitle>{t('common:history.clearAll')}</FrameTitle>
-						<FrameDescription>
-							{t('common:history.settings.description')}
-						</FrameDescription>
-					</div>
-					<Button
-						variant="outline"
-						size="sm"
-						onClick={() => setConfirmClear(true)}
-					>
-						{t('common:history.clearAll')}
-					</Button>
-				</div>
-			</FramePanel>
+				<ListRow
+					label={t('common:history.settings.storedEntries')}
+					description={t('common:history.settings.description')}
+					trailing={
+						<Button
+							variant="outline"
+							size="sm"
+							onClick={() => setConfirmClear(true)}
+						>
+							{t('common:history.clearAll')}
+						</Button>
+					}
+				/>
+			</ToggleGroup>
 
 			<AlertDialog open={confirmClear} onOpenChange={setConfirmClear}>
 				<AlertDialogContent>
@@ -112,6 +98,6 @@ export function TransferHistorySettings() {
 					</AlertDialogFooter>
 				</AlertDialogContent>
 			</AlertDialog>
-		</Frame>
+		</>
 	)
 }

@@ -593,7 +593,8 @@
 			"title": "传输历史记录",
 			"description": "记录你在此设备上发送和接收的内容。",
 			"toggle": "记录传输",
-			"toggleHint": "关闭后将不再新增条目。已记录的内容将保留，直到你将其清除。"
+			"toggleHint": "关闭后将不再新增条目。已记录的内容将保留，直到你将其清除。",
+			"storedEntries": "Stored transfers"
 		},
 		"errorTitle": "History unavailable",
 		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up."
