@@ -129,7 +129,8 @@
 				"waiting": "កំពុងរង់ចាំឱ្យនរណាម្នាក់ប្រើតំណភ្ជាប់របស់អ្នក"
 			},
 			"or": "ឬ"
-		}
+		},
+		"pickSomething": "Choose a file to send"
 	},
 	"receiver": {
 		"title": "ទទួលឯកសារ",
@@ -176,7 +177,9 @@
 			"title": "Pairing request",
 			"description": "{{sender}} wants to pair with this device.",
 			"descriptionWithType": "{{sender}} ({{deviceType}}) wants to pair with this device."
-		}
+		},
+		"stepCode": "Step 1 — Get the code",
+		"stepDestination": "Step 2 — Choose where it saves"
 	},
 	"transfer": {
 		"progress": "វឌ្ឍនភាពនៃការផ្ទេរ",

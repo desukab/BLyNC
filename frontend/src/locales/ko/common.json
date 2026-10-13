@@ -129,7 +129,8 @@
 				"waiting": "링크 사용을 기다리는 중"
 			},
 			"or": "또는"
-		}
+		},
+		"pickSomething": "Choose a file to send"
 	},
 	"receiver": {
 		"title": "파일 받기",
@@ -176,7 +177,9 @@
 			"title": "Pairing request",
 			"description": "{{sender}} wants to pair with this device.",
 			"descriptionWithType": "{{sender}} ({{deviceType}}) wants to pair with this device."
-		}
+		},
+		"stepCode": "Step 1 — Get the code",
+		"stepDestination": "Step 2 — Choose where it saves"
 	},
 	"transfer": {
 		"progress": "전송 진행률",

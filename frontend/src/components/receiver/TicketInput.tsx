@@ -164,7 +164,10 @@ export function TicketInput({
 
 	return (
 		<div className="flex flex-col gap-4">
-			<div className="flex flex-col gap-1.5">
+			<div className="flex min-w-0 flex-1 flex-col gap-1.5">
+				<p className="text-caption font-semibold uppercase tracking-[0.07em] text-muted-foreground">
+					{t('common:receiver.stepCode')}
+				</p>
 				<p id="ticket-input-label" className="text-body font-medium">
 					{t('common:receiver.pasteTicket')}
 				</p>

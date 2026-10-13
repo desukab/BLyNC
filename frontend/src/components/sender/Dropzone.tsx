@@ -317,15 +317,22 @@ export function Dropzone({
 							<div className="flex size-14 items-center justify-center rounded-2xl bg-muted text-muted-foreground">
 								<UploadGlyph />
 							</div>
-							<div className="flex flex-col gap-1">
-								{/* The status line is the heading on desktop; on a phone
-								    the tap target carries the meaning, so this stays
-								    secondary rather than shouting over the screen title. */}
-								<p className="hidden text-heading font-medium sm:block">
-									{getStatusText()}
+							<div className="flex flex-col gap-1.5">
+								{/* With the duplicate browse buttons gone, this card
+								    has to state the action outright on a phone as
+								    well as on desktop — "drag and drop" means
+								    nothing to someone holding the handset. */}
+								<p className="text-heading font-medium">
+									{t('common:sender.pickSomething')}
 								</p>
 								<p className="text-sm text-muted-foreground text-pretty">
 									{getSubText()}
+								</p>
+								{/* Drag is a pointer-only affordance, so it is only
+								    worth mentioning when a pointer is what is
+								    holding the screen. */}
+								<p className="hidden text-caption text-muted-foreground/80 sm:block">
+									{getStatusText()}
 								</p>
 							</div>
 						</>

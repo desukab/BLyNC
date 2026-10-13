@@ -14,7 +14,8 @@ import {
 } from '../components/ui/alert-dialog'
 import { Button } from '../components/ui/button'
 import { ScrollArea } from '../components/ui/scroll-area'
-import { EmptyState, ErrorState, LoadingState } from '../components/ui/states'
+import { Skeleton } from '../components/ui/skeleton'
+import { EmptyState, ErrorState } from '../components/ui/states'
 import { Screen, ScreenBody, ScreenTitle } from '../components/ui/surface'
 import {
 	Select,
@@ -51,6 +52,34 @@ import {
 interface KnownDevice {
 	endpoint_id: string
 	display_name: string
+}
+
+/**
+ * Placeholder rows for the history list while the first read is in flight.
+ *
+ * A generic centred spinner said nothing about what was arriving and then got
+ * replaced by a list, so the screen visibly changed shape. These rows match the
+ * list's own rhythm and alignment, and they are hidden from assistive tech
+ * because the loading state is already announced by the region below.
+ */
+function HistoryListSkeleton() {
+	return (
+		<div aria-hidden className="flex flex-col gap-2">
+			{['row-0', 'row-1', 'row-2', 'row-3'].map((id) => (
+				<div
+					key={id}
+					className="flex items-center gap-3 rounded-2xl border border-border bg-surface-raised px-4 py-3"
+				>
+					<Skeleton className="size-9 shrink-0 rounded-xl" />
+					<div className="flex min-w-0 flex-1 flex-col gap-2">
+						<Skeleton className="h-3.5 w-1/2" />
+						<Skeleton className="h-3 w-2/3" />
+					</div>
+					<Skeleton className="h-6 w-16 shrink-0 rounded-lg" />
+				</div>
+			))}
+		</div>
+	)
 }
 
 export function HistoryPage() {
@@ -267,40 +296,47 @@ export function HistoryPage() {
 			<ScreenBody>
 				<div className="flex flex-col gap-1">
 					<ScreenTitle>{t('common:history.title')}</ScreenTitle>
-					{/* One timeline, each row carries its own direction arrow, so
-					    direction is not a filter. Status is the only filter and
-					    usually stays on "All" — hence a dropdown, not chips. */}
-					<div className="mt-2 flex items-center gap-2">
-						<Select value={status}>
-							<SelectTrigger size="sm" className="w-44">
-								<SelectValue placeholder={t('common:history.filters.all')}>
-									{(value: string | null) =>
-										t(`common:history.filters.${value ?? 'all'}`)
-									}
-								</SelectValue>
-							</SelectTrigger>
-							<SelectPopup>
-								{TRANSFER_STATUS_FILTERS.map((option) => (
-									<SelectItem
-										key={option}
-										value={option}
-										onClick={() => setStatus(option)}
-									>
-										{t(`common:history.filters.${option}`)}
-									</SelectItem>
-								))}
-							</SelectPopup>
-						</Select>
-						<span className="text-callout text-muted-foreground tabular-nums">
-							{t('common:history.filters.count', { count: visible.length })}
-						</span>
-					</div>
+					{/* The count and the filter only exist once the query has
+					    succeeded. During a load, or after a failure, showing
+					    "0 shown" reads as "you have no transfers" — a claim the
+					    screen cannot actually make yet, or at all. */}
+					{!isLoading && !loadError && records.length > 0 && (
+						<div className="mt-2 flex items-center gap-2">
+							<Select value={status}>
+								<SelectTrigger size="sm" className="w-44">
+									<SelectValue placeholder={t('common:history.filters.all')}>
+										{(value: string | null) =>
+											t(`common:history.filters.${value ?? 'all'}`)
+										}
+									</SelectValue>
+								</SelectTrigger>
+								<SelectPopup>
+									{TRANSFER_STATUS_FILTERS.map((option) => (
+										<SelectItem
+											key={option}
+											value={option}
+											onClick={() => setStatus(option)}
+										>
+											{t(`common:history.filters.${option}`)}
+										</SelectItem>
+									))}
+								</SelectPopup>
+							</Select>
+							<span className="text-callout text-muted-foreground tabular-nums">
+								{t('common:history.filters.count', { count: visible.length })}
+							</span>
+						</div>
+					)}
 				</div>
 
 				<div className="min-h-0 flex-1">
 					<ScrollArea className="h-full">
 						{isLoading ? (
-							<LoadingState label={t('common:loading')} />
+							/* Rows are arriving, so the skeleton is rows — the
+							   placeholder has the same rhythm as the content
+							   it stands in for, so nothing jumps when the
+							   real list replaces it. */
+							<HistoryListSkeleton />
 						) : loadError ? (
 							<ErrorState
 								title={t('common:history.errorTitle')}

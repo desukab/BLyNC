@@ -139,7 +139,8 @@
 				"hint": "拥有此链接的任何人都可以接收您的文件。",
 				"transferInProgress": "传输进行中 - 打开「一次性传输」查看详情。"
 			}
-		}
+		},
+		"pickSomething": "Choose a file to send"
 	},
 	"receiver": {
 		"title": "接收文件",
@@ -200,7 +201,9 @@
 		"downloadCompletedWithConflicts": "下载完成，已处理重名冲突",
 		"downloadedFile": "已下载文件",
 		"stopReceiving": "停止接收",
-		"download": "下载"
+		"download": "下载",
+		"stepCode": "Step 1 — Get the code",
+		"stepDestination": "Step 2 — Choose where it saves"
 	},
 	"transfer": {
 		"progress": "传输进度",

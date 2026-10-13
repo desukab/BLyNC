@@ -129,7 +129,8 @@
 				"waiting": "किसी के आपका लिंक उपयोग करने की प्रतीक्षा"
 			},
 			"or": "या"
-		}
+		},
+		"pickSomething": "Choose a file to send"
 	},
 	"receiver": {
 		"title": "फ़ाइलें प्राप्त करें",
@@ -176,7 +177,9 @@
 			"title": "Pairing request",
 			"description": "{{sender}} wants to pair with this device.",
 			"descriptionWithType": "{{sender}} ({{deviceType}}) wants to pair with this device."
-		}
+		},
+		"stepCode": "Step 1 — Get the code",
+		"stepDestination": "Step 2 — Choose where it saves"
 	},
 	"transfer": {
 		"progress": "ट्रांसफ़र प्रगति",

@@ -74,7 +74,6 @@ export function DragDrop({
 			{!selectedPath && (
 				<BrowseButtons
 					isLoading={isLoading || false}
-					onBrowseFile={browseFile}
 					onBrowseFolder={browseFolder}
 				/>
 			)}

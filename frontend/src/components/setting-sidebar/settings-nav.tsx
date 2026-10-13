@@ -1,6 +1,5 @@
 import { NavLink, useLocation } from 'react-router-dom'
 import { useTranslation } from '@/i18n'
-import { IS_WEB } from '@/lib/platform'
 import { cn } from '@/lib/utils'
 import { settingSidebarConfig } from './config'
 
@@ -14,9 +13,12 @@ import { settingSidebarConfig } from './config'
  * than every other screen in the app. On a phone a drawer you must summon to
  * navigate is a tax on the most-visited surface.
  *
- * Now the sections are always visible: a scrollable pill row pinned under the
- * screen heading on a phone, and the existing left rail on desktop where there
- * is room for it. Same four destinations, no drawer, no forced gesture.
+ * The four sections are now always visible under the screen heading. The row
+ * has to survive a 360px viewport, where the full labels need ~440px: every
+ * item therefore carries a short form, switched on with a container query so
+ * the decision is made from the width actually available rather than from a
+ * device guess, and the row still scrolls if a translation is longer than
+ * either form.
  */
 export function SettingsNav() {
 	const { t } = useTranslation()
@@ -26,9 +28,11 @@ export function SettingsNav() {
 		<div
 			data-slot="settings-nav"
 			className={cn(
-				'flex gap-1 overflow-x-auto scrollbar-hide',
-				'border-b border-border bg-background',
-				IS_WEB && 'sticky top-0 z-10'
+				// A container query on the row itself: the short-label switch keys
+				// off the space this component really has.
+				'@container',
+				'flex gap-1 overflow-x-auto overscroll-x-contain scrollbar-hide',
+				'border-b border-border bg-background'
 			)}
 			style={{
 				paddingLeft: 'calc(1rem + var(--safe-area-left))',
@@ -54,8 +58,17 @@ export function SettingsNav() {
 					>
 						{({ isActive }) => (
 							<span className="relative inline-block">
-								{/* `translationNs` is already fully qualified in the config. */}
-								{t(item.translationNs ?? item.label)}
+								{/* This row is phone-only (`SettingMobileHeader` gates it),
+								    and the four full labels need ~440px, which a 360px
+								    phone does not have. So the short form is the
+								    default here and the full label is the fallback for
+								    sections without one. Nothing is clipped and no
+								    section is unreachable at any supported width. */}
+								{item.shortTranslationNs ? (
+									<span>{t(item.shortTranslationNs)}</span>
+								) : (
+									<span>{t(item.translationNs ?? item.label)}</span>
+								)}
 								{/* Underline rather than a filled pill: it reads as a
 								    position within a list, not as a button. */}
 								<span

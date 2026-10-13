@@ -129,7 +129,8 @@
 				"waiting": "Čekanje da neko koristi tvoj link"
 			},
 			"or": "ili"
-		}
+		},
+		"pickSomething": "Choose a file to send"
 	},
 	"receiver": {
 		"title": "Прими датотеке",
@@ -176,7 +177,9 @@
 			"title": "Pairing request",
 			"description": "{{sender}} wants to pair with this device.",
 			"descriptionWithType": "{{sender}} ({{deviceType}}) wants to pair with this device."
-		}
+		},
+		"stepCode": "Step 1 — Get the code",
+		"stepDestination": "Step 2 — Choose where it saves"
 	},
 	"transfer": {
 		"progress": "Напредак преноса",

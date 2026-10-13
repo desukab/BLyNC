@@ -25,6 +25,7 @@ export const settingSidebarConfig: Record<string, INavItem[]> = {
 			icon: 'Palette',
 			to: 'appearance',
 			translationNs: 'settings.navItems.appearance',
+			shortTranslationNs: 'settings.navItems.appearanceShort',
 		},
 	],
 }

@@ -12,7 +12,7 @@
 		"transferUnavailable": "File transfer is not available in the web preview. Download the desktop app to send and receive files."
 	},
 	"webPromo": {
-		"platforms": "DashBeam is available as desktop, Android, CLI, and web.",
+		"platforms": "BLyNC is available as desktop, Android, CLI, and web.",
 		"notice": "Web version doesn't support direct connections - traffic is relayed through encrypted public relays and speeds are throttled. Your files stay encrypted either way. Use the desktop/CLI app or custom relays for a better experience.",
 		"linksLabel": "Get the desktop app and project links",
 		"download": "See download options",
@@ -82,7 +82,7 @@
 		"showReceiveQr": "Show receive QR code",
 		"receiveQrTitle": "Receive QR",
 		"scanToReceive": "Scan to receive",
-		"shareMessageIntro": "Private transfer - Sent with DashBeam",
+		"shareMessageIntro": "Private transfer — sent with BLyNC",
 		"description": "Description (optional)",
 		"broadcastMode": {
 			"index": "Broadcast",
@@ -139,7 +139,8 @@
 				"hint": "Anyone with this link can receive your files.",
 				"transferInProgress": "Transfer in progress - open One-time transfer to see details."
 			}
-		}
+		},
+		"pickSomething": "Choose a file to send"
 	},
 	"receiver": {
 		"title": "Receive Files",
@@ -170,7 +171,7 @@
 		"receiveBusyDescription": "Wait for the current download to finish before accepting another file.",
 		"openReceiveTabHint": "Open the Receive tab once, then try again.",
 		"subtitle": "Download files from sender using encrypted peer-to-peer connections over the internet.",
-		"saveToFolder": "Save to folder:",
+		"saveToFolder": "Save to folder",
 		"saveLocation": "Save location:",
 		"noFolderSelected": "No folder selected",
 		"browserDownloadsFallback": "Browser downloads folder",
@@ -181,8 +182,8 @@
 		"downloadFallbackDescription": "Files were saved to the app download folder: {{path}}",
 		"downloadFallbackSafDescription": "Could not write to the selected folder. Files were kept in the app download folder: {{path}}",
 		"conflictsMore": "... and {{count}} more",
-		"pasteTicket": "Paste the ticket here:",
-		"ticketPlaceholder": "DashBeam receive ticket...",
+		"pasteTicket": "Paste the code the sender shared",
+		"ticketPlaceholder": "Paste the code the sender shared…",
 		"howToReceive": "How to receive files",
 		"instruction1": "Sender must be online and sharing a file",
 		"instruction2": "Get a ticket from the sender",
@@ -200,7 +201,9 @@
 		"downloadCompletedWithConflicts": "Download completed with name conflicts resolved",
 		"downloadedFile": "Downloaded File",
 		"stopReceiving": "Stop receiving",
-		"download": "Download"
+		"download": "Download",
+		"stepCode": "Step 1 — Get the code",
+		"stepDestination": "Step 2 — Choose where it saves"
 	},
 	"transfer": {
 		"progress": "Transfer Progress",
@@ -252,7 +255,8 @@
 			"general": "General",
 			"devices": "Devices",
 			"infra": "Infra",
-			"network": "Network"
+			"network": "Network",
+			"appearanceShort": "Display"
 		},
 		"theme": {
 			"description": "Select your preferred theme",
@@ -275,13 +279,13 @@
 			"systembar": {
 				"title": "Startup & background",
 				"runOnSystemStartup": {
-					"label": "Start DashBeam when I sign in",
+					"label": "Start BLyNC when I sign in",
 					"description": "Launch in the background at login so paired devices can see you're online"
 				},
 				"runOnSystemStartupFailed": "Couldn't change the startup setting",
 				"minimizeToTray": {
 					"label": "Keep running in the background",
-					"description": "Closing the window keeps DashBeam running in the tray. Quit from the tray icon to stop it."
+					"description": "Closing the window keeps BLyNC running in the tray. Quit from the tray icon to stop it."
 				},
 				"trayOpen": "Open",
 				"trayQuit": "Quit",
@@ -294,7 +298,7 @@
 				},
 				"contextMenu": {
 					"label": "Explorer context menu",
-					"description": "Add 'Send with DashBeam' to the Windows Explorer right-click menu"
+					"description": "Add 'Send with BLyNC' to the Windows Explorer right-click menu"
 				}
 			},
 			"broadcast": {
@@ -314,15 +318,15 @@
 			"notifications": {
 				"title": "Notifications",
 				"label": "Show system notifications",
-				"description": "Get notified about pair requests, incoming files, and completed downloads when DashBeam isn't in front of you"
+				"description": "Get notified about pair requests, incoming files, and completed downloads when BLyNC isn't in front of you"
 			},
 			"debugMode": {
 				"label": "Debug logging",
 				"description": "Record detailed diagnostics about transfers, connections, relays and pairing so you can attach them to a bug report. Off by default, and switches itself off after 7 days.",
 				"restartTitle": "Restart required",
-				"restartDescription": "Restart DashBeam for this change to take effect.",
-				"pendingOn": "Debug logging starts after you restart DashBeam.",
-				"pendingOff": "Debug logging stops after you restart DashBeam.",
+				"restartDescription": "Restart BLyNC for this change to take effect.",
+				"pendingOn": "Debug logging starts after you restart BLyNC.",
+				"pendingOff": "Debug logging stops after you restart BLyNC.",
 				"save": "Save diagnostics…",
 				"savedTitle": "Diagnostics saved",
 				"savedDescription": "Attach this file to your bug report. Review it first, because it includes IP addresses, device IDs, your device name, and names of files you shared.",
@@ -338,7 +342,7 @@
 			"nodeUnavailableHint": "Manual tickets and file sharing still work normally.",
 			"relayChangePairedHint": "Paired devices stay listed. Paired send may not work until both devices can reach each other on the new network setup.",
 			"thisDevice": "This device",
-			"thisDeviceHint": "Name shown to devices you pair with. OS and device type are detected automatically.",
+			"thisDeviceHint": "The name devices you pair with will see.",
 			"deviceName": "Device name",
 			"deviceNamePlaceholder": "e.g. Tony’s MacBook",
 			"rename": "Rename",
@@ -349,7 +353,7 @@
 			"trustConfirmBody": "Trusting this device lets it put any file on this system without asking you first - including files that turn out to be malicious. Only trust a device you own or control.",
 			"trustConfirmAction": "Trust device",
 			"renameThisDevice": "Rename this device",
-			"renameThisDeviceHint": "Choose a name that helps you recognize this computer when pairing.",
+			"renameThisDeviceHint": "A name you will recognise on the other device.",
 			"renameDevice": "Rename paired device",
 			"renameDeviceHint": "This only changes the name on this device - it does not rename the other side.",
 			"saveName": "Save name",
@@ -360,10 +364,10 @@
 			"enterCode": "Enter pairing code",
 			"hostHint": "Scan or copy this code on the device you want to pair. You can close this dialog - pairing stays open until it expires.",
 			"hostExpiresIn": "Expires in {{seconds}}s.",
-			"hostStillOpen": "Waiting for a device to join - pairing open for {{seconds}}s.",
+			"hostStillOpen": "Waiting for a device to join — open for {{seconds}}s.",
 			"hostOpenedToast": "Pairing open for {{seconds}}s",
 			"hostClosedToast": "Pairing window closed",
-			"copyOpensPairingHint": "Copy the code to open pairing for 3 minutes. Paste it on the other device.",
+			"copyOpensPairingHint": "Copy this code, then paste it on the other device. It expires in 3 minutes.",
 			"cancelPairing": "Cancel pairing",
 			"joinHint": "Paste the pairing code from your other device.",
 			"codePlaceholder": "Paste pairing code",
@@ -371,7 +375,7 @@
 			"pairDevice": "Pair",
 			"pairing": "Pairing…",
 			"noPairedDevices": "No paired devices yet",
-			"noPairedDevicesHint": "Pair another phone or computer to send files without sharing tickets each time.",
+			"noPairedDevicesHint": "Pair a phone or computer to send without sharing a code each time.",
 			"searchPlaceholder": "Search paired devices",
 			"searchNoResults": "No paired devices match your search.",
 			"devicePaired": "Device paired",
@@ -416,7 +420,7 @@
 		"network": {
 			"relay": {
 				"title": "Relay servers",
-				"description": "Control which iroh relay servers DashBeam uses for NAT traversal and encrypted fallback connections.",
+				"description": "Relays help your devices connect on hard networks. Transfers stay end-to-end encrypted either way.",
 				"modeDefault": "Automatic (public relays)",
 				"modeDefaultDesc": "Use the default public iroh relays. Best for most users.",
 				"modeCustom": "Custom self-hosted",
@@ -457,8 +461,8 @@
 				"confirmDisableTitle": "Disable relays?",
 				"confirmDisableDescription": "You've chosen to disable relays. File transfers may fail if you try to share files with someone outside your local network. Relays help devices find & connect across difficult network conditions, and your transfers always stay end-to-end encrypted.",
 				"confirmCustomTitle": "Use custom relays?",
-				"confirmCustomDescription": "You've chosen to use custom self-hosted relays. If your custom relays are unreachable, transfers will automatically fall back to public relays and you'll be notified. Relays only help your devices connect across difficult network conditions, and your transfers always stay end-to-end encrypted.",
-				"confirmCustomDescriptionWithPolicy": "You've chosen to use custom self-hosted relays. If they are unreachable, DashBeam will follow the fallback policy selected in Relay settings. Relays only help your devices connect across difficult network conditions, and your transfers always stay end-to-end encrypted.",
+				"confirmCustomDescription": "Custom relays will be used first. If they cannot be reached, transfers fall back to public relays and you will be notified. Your data stays end-to-end encrypted.",
+				"confirmCustomDescriptionWithPolicy": "Custom relays will be used first. If they cannot be reached, BLyNC follows the fallback policy chosen above. Your data stays end-to-end encrypted.",
 				"confirmContinue": "Continue"
 			},
 			"discovery": {
@@ -511,7 +515,7 @@
 		"restartAnyway": "Restart anyway",
 		"restartBusyDescription": "A transfer is in progress. Restarting now will cancel it.",
 		"restartFailed": "Restart Failed",
-		"restartFailedDesc": "Failed to restart. Quit and reopen DashBeam to finish updating.",
+		"restartFailedDesc": "Failed to restart. Quit and reopen BLyNC to finish updating.",
 		"cancel": "Cancel",
 		"dismiss": "Dismiss",
 		"download": "Download",
@@ -522,7 +526,7 @@
 	},
 	"notifications": {
 		"pairRequestTitle": "{{sender}} wants to pair",
-		"pairRequestBody": "Open DashBeam to accept or decline",
+		"pairRequestBody": "Open BLyNC to accept or decline",
 		"inviteTitle": "{{sender}} is sending you files",
 		"nearbyInviteTitle": "{{sender}} nearby wants to send you files",
 		"autoAcceptTitle": "Receiving from {{sender}}",

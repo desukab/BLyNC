@@ -55,28 +55,14 @@ export function Receiver({ onTransferStateChange }: ReceiverProps) {
 		<div className="relative flex min-h-0 flex-1 flex-col gap-4">
 			{!isReceiving ? (
 				<>
-					{/* The screen title carries the "Receive" heading; this row is the
-					    one place the how-it-works help lives, aligned to the primary
-					    action rather than floating next to body copy. */}
-					<div className="flex items-center justify-end">
-						<Button
-							type="button"
-							variant="ghost"
-							size="sm"
-							onClick={() => setShowInstructionsDialog(true)}
-							className="text-muted-foreground"
-						>
-							<Info />
-							{t('common:receiver.howToReceive')}
-						</Button>
-					</div>
-
-					<div className="flex min-h-0 flex-1 flex-col gap-4">
-						<ReceiveSaveLocationPicker
-							savePath={savePath}
-							disabled={isReceiving}
-							onBrowseFolder={handleBrowseFolder}
-						/>
+					{/* The order here is the order of the task: you cannot do
+					    anything with a destination until you have a code, and
+					    the code is what the sender handed you. Destination and
+					    progress/completion live in the child components; this
+					    screen just sequences the two steps so the primary one
+					    is not buried under a folder picker. Help stays a
+					    single quiet affordance rather than body copy. */}
+					<div className="flex items-center justify-between gap-2">
 						<TicketInput
 							ticket={ticket}
 							isReceiving={isReceiving}
@@ -85,7 +71,24 @@ export function Receiver({ onTransferStateChange }: ReceiverProps) {
 							onTicketChange={handleTicketChange}
 							onReceive={handleReceive}
 						/>
+						<Button
+							type="button"
+							variant="ghost"
+							size="icon-sm"
+							onClick={() => setShowInstructionsDialog(true)}
+							className="text-muted-foreground"
+							aria-label={t('common:receiver.howToReceive')}
+							title={t('common:receiver.howToReceive')}
+						>
+							<Info />
+						</Button>
 					</div>
+
+					<ReceiveSaveLocationPicker
+						savePath={savePath}
+						disabled={isReceiving}
+						onBrowseFolder={handleBrowseFolder}
+					/>
 				</>
 			) : isCompleted && transferMetadata ? (
 				<div className="flex-1 flex flex-col">

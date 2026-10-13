@@ -1,57 +1,43 @@
-import { FileTextIcon, FolderOpenIcon } from 'lucide-react'
+import { FolderOpenIcon } from 'lucide-react'
 import { useTranslation } from '../../i18n/react-i18next-compat'
 import type { BrowseButtonsProps } from '../../types/sender'
 import { Button } from '../ui/button'
 
 /**
- * The two ways to pick something on Send.
+ * The alternative selection path on Send.
  *
- * Files is the action almost everyone wants, so it is the filled primary and
- * Folders is its outlined peer. They used to be two identical buttons in a
- * hairline-joined group, which gave no hint that one was the common path —
- * and on a phone they stacked, so the order they read in changed by device.
+ * The selection card is itself the picker — tapping anywhere on it opens the
+ * file browser. That left this component adding two more buttons restating the
+ * same action directly beneath it, so an empty Send screen spent ~330px of a
+ * 800px viewport on three ways to do one thing, and the real choice (file vs
+ * folder) had no emphasis.
+ *
+ * Now the card carries the primary action and this is the one secondary path
+ * that is genuinely different from it: sending a whole folder. It is a text
+ * button rather than a filled one, so it reads as a fallback and not as a
+ * competing primary. Both paths stay available.
  */
 export function BrowseButtons({
 	isLoading,
-	onBrowseFile,
 	onBrowseFolder,
-}: BrowseButtonsProps) {
+}: Omit<BrowseButtonsProps, 'onBrowseFile'>) {
 	const { t } = useTranslation()
 
 	return (
-		<div className="flex flex-col gap-2 sm:flex-row">
+		<div className="flex justify-center">
 			<Button
 				type="button"
-				variant="outline"
-				size="lg"
+				variant="link"
+				size="sm"
 				onClick={(e) => {
 					e.stopPropagation()
 					onBrowseFolder()
 				}}
 				disabled={isLoading}
-				className="w-full sm:w-auto"
+				className="text-muted-foreground px-2"
 			>
-				<FolderOpenIcon className="size-4.5" />
+				<FolderOpenIcon className="size-4" />
 				{t('common:sender.browseFolder')}
-			</Button>
-			<Button
-				type="button"
-				size="lg"
-				onClick={(e) => {
-					e.stopPropagation()
-					onBrowseFile()
-				}}
-				disabled={isLoading}
-				className="w-full sm:w-auto"
-			>
-				{isLoading ? (
-					t('common:loading')
-				) : (
-					<>
-						<FileTextIcon className="size-4.5" />
-						{t('common:sender.browseFile')}
-					</>
-				)}
 			</Button>
 		</div>
 	)

@@ -36,6 +36,9 @@ export function ReceiveSaveLocationPicker({
 
 	return (
 		<div className="flex flex-col gap-1.5">
+			<p className="text-caption font-semibold uppercase tracking-[0.07em] text-muted-foreground">
+				{t('common:receiver.stepDestination')}
+			</p>
 			<p className="text-body font-medium">{saveLocationLabel}</p>
 			<InputGroup
 				onClick={canPickSaveLocation && !disabled ? onBrowseFolder : undefined}
