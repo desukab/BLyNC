@@ -1,31 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="BLyNC">
   <title>BLyNC</title>
   <rect width="512" height="512" rx="115.20" fill="#080908"/>
-  <rect x="100.908" y="100.908" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="146.256" y="100.908" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="191.605" y="100.908" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="236.954" y="100.908" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="282.302" y="100.908" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="100.908" y="146.256" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="282.302" y="146.256" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="327.651" y="146.256" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="372.999" y="146.256" width="38.093" height="38.093" rx="12.952" fill="#00B0FF"/>
-  <rect x="100.908" y="191.605" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="282.302" y="191.605" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="100.908" y="236.954" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="146.256" y="236.954" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="191.605" y="236.954" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="236.954" y="236.954" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="282.302" y="236.954" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="100.908" y="282.302" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="282.302" y="282.302" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="327.651" y="282.302" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="372.999" y="282.302" width="38.093" height="38.093" rx="12.952" fill="#00B0FF"/>
-  <rect x="100.908" y="327.651" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="282.302" y="327.651" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="100.908" y="372.999" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="146.256" y="372.999" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="191.605" y="372.999" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="236.954" y="372.999" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
-  <rect x="282.302" y="372.999" width="38.093" height="38.093" rx="12.952" fill="#B6FF00"/>
+  <defs>
+    <linearGradient id="beam" x1="337.10" y1="0" x2="432.95" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00B0FF" stop-opacity="0.72"/>
+      <stop offset="1" stop-color="#00B0FF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="337.10" y="178.59" width="88.47" height="29.49" rx="14.75" fill="url(#beam)"/>
+  <rect x="351.85" y="300.24" width="81.10" height="29.49" rx="14.75" fill="url(#beam)"/>
+  <rect x="145.41" y="138.04" width="66.36" height="235.93" rx="14.75" fill="#B6FF00"/>
+  <rect x="145.41" y="138.04" width="199.07" height="114.28" rx="57.14" fill="#B6FF00"/>
+  <rect x="145.41" y="259.69" width="213.81" height="114.28" rx="57.14" fill="#B6FF00"/>
+  <rect x="211.76" y="171.21" width="88.47" height="55.30" rx="27.65" fill="#080908"/>
+  <rect x="211.76" y="281.80" width="103.22" height="55.30" rx="27.65" fill="#080908"/>
 </svg>

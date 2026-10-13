@@ -156,7 +156,7 @@ export function DiscoverySettings() {
 					<button
 						type="button"
 						onClick={() => handleModeChange('default')}
-						className="flex cursor-pointer items-start gap-3 text-left"
+						className="flex min-h-11 w-full cursor-pointer items-start gap-3 text-left"
 					>
 						<RadioGroupItem value="default" className="mt-0.5" />
 						<div>
@@ -172,7 +172,7 @@ export function DiscoverySettings() {
 					<button
 						type="button"
 						onClick={() => handleModeChange('custom')}
-						className="flex cursor-pointer items-start gap-3 text-left"
+						className="flex min-h-11 w-full cursor-pointer items-start gap-3 text-left"
 					>
 						<RadioGroupItem value="custom" className="mt-0.5" />
 						<div>

@@ -21,7 +21,14 @@ export const useThemeStore = create<IThemeStore>()(
 	persist(
 		(set) => ({
 			themes: APP_THEMES,
-			activeTheme: 'auto',
+			/*
+			  BLyNC ships pitch-black + neon-lime as the out-of-the-box look, not
+			  as one option among twenty. A fresh install has no persisted value,
+			  so this is what a new user sees; anyone who has already chosen a
+			  theme keeps it (the migrate() below only rewrites values that no
+			  longer exist).
+			*/
+			activeTheme: 'blync',
 			setTheme: (activeTheme: AppTheme) => set(() => ({ activeTheme })),
 			isDark: false,
 			setIsDark: (isDark: boolean) => set(() => ({ isDark })),

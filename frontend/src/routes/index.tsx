@@ -109,8 +109,8 @@ export function IndexPage() {
 
 	return (
 		<SingleLayoutPage.SingleLayoutPage>
-			<div className="max-w-2xl mx-auto w-full pt-8 sm:pt-0">
-				<Frame>
+			<div className="mx-auto flex min-h-0 w-full max-w-2xl flex-1 flex-col">
+				<Frame className="min-h-0 flex-1">
 					<Tabs
 						value={activeTab}
 						onValueChange={(v) => setActiveTab(v as 'send' | 'receive')}

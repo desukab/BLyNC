@@ -52,7 +52,7 @@ export function Receiver({ onTransferStateChange }: ReceiverProps) {
 	}, [isReceiving, onTransferStateChange])
 
 	return (
-		<div className="p-2 sm:p-6 space-y-5 relative h-[62dvh] sm:h-112 overflow-y-auto flex flex-col">
+		<div className="relative flex min-h-0 flex-1 flex-col space-y-5 overflow-y-auto p-0 sm:p-6">
 			{!isReceiving ? (
 				<>
 					{/*

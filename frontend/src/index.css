@@ -209,7 +209,14 @@
 @layer utilities {
 	:root {
 		--radius: 0.75rem;
-		--font-size-base: 15px;
+		/*
+		  16px, not 15px. Every `text-*` step is derived from this, so on a phone
+		  the body copy was computing to 13.1px and labels to 11.25px — both
+		  meaningfully under the 14-16sp that Android and iOS body text expects,
+		  which is why the whole UI read as cramped. At 16px the scale lands on
+		  whole numbers: xs 12, sm 14, base 16, lg 18, xl 20, 2xl 24.
+		*/
+		--font-size-base: 16px;
 		--app-primary: rgba(37, 211, 101, 0.687);
 		--app-accent-light: rgb(45, 120, 220);
 		--app-accent: rgb(54 54 54);

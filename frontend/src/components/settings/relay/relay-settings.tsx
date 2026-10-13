@@ -272,7 +272,7 @@ export function RelaySettings() {
 					<button
 						type="button"
 						onClick={() => handleModeChange('default')}
-						className="flex cursor-pointer items-start gap-3 text-left"
+						className="flex min-h-11 w-full cursor-pointer items-start gap-3 text-left"
 					>
 						<RadioGroupItem value="default" className="mt-0.5" />
 						<div>
@@ -288,7 +288,7 @@ export function RelaySettings() {
 					<button
 						type="button"
 						onClick={() => handleModeChange('custom')}
-						className="flex cursor-pointer items-start gap-3 text-left"
+						className="flex min-h-11 w-full cursor-pointer items-start gap-3 text-left"
 					>
 						<RadioGroupItem value="custom" className="mt-0.5" />
 						<div>
@@ -316,7 +316,7 @@ export function RelaySettings() {
 						<button
 							type="button"
 							onClick={() => handleModeChange('disabled')}
-							className="flex cursor-pointer items-start gap-3 text-left"
+							className="flex min-h-11 w-full cursor-pointer items-start gap-3 text-left"
 						>
 							<RadioGroupItem value="disabled" className="mt-0.5" />
 							<div>
@@ -473,7 +473,7 @@ export function RelaySettings() {
 										key={option.value}
 										type="button"
 										onClick={() => setRelayFallback(option.value)}
-										className="flex cursor-pointer items-start gap-3 text-left"
+										className="flex min-h-11 w-full cursor-pointer items-start gap-3 text-left"
 									>
 										<RadioGroupItem value={option.value} className="mt-0.5" />
 										<div>

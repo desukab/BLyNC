@@ -123,7 +123,7 @@ export function DiscoverabilitySetting() {
 							<label
 								key={option.value}
 								htmlFor={`discoverability-${option.value}`}
-								className="flex cursor-pointer items-start gap-3 text-left"
+								className="flex min-h-11 w-full cursor-pointer items-start gap-3 text-left"
 							>
 								<RadioGroupItem
 									id={`discoverability-${option.value}`}

@@ -254,7 +254,7 @@ export function HistoryPage() {
 				{/* Arrow and title are one target, matching the settings header. */}
 				<Link
 					to="/"
-					className="pointer-events-auto flex min-w-0 items-center gap-2 rounded-md px-1.5 outline-none focus-visible:ring-2 focus-visible:ring-ring"
+					className="pointer-events-auto flex min-h-11 min-w-0 items-center gap-2 rounded-md px-1.5 outline-none focus-visible:ring-2 focus-visible:ring-ring"
 				>
 					<BackArrowIcon size={18} className="text-muted-foreground" />
 					<h1 className="truncate font-medium text-lg">

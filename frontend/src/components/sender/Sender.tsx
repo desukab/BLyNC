@@ -70,7 +70,7 @@ export function Sender({ onTransferStateChange }: SenderProps) {
 	}, [viewState, isBroadcastMode, setIsBroadcastMode])
 
 	return (
-		<div className="p-0 sm:p-6 space-y-5 relative h-[62dvh] sm:h-112 overflow-y-auto flex flex-col">
+		<div className="relative flex min-h-0 flex-1 flex-col space-y-5 overflow-y-auto p-0 sm:p-6">
 			{/* IDLE state: Show file selection UI */}
 			{viewState === 'IDLE' && (
 				<>
@@ -80,10 +80,10 @@ export function Sender({ onTransferStateChange }: SenderProps) {
 					  second "Send" was costing a phone ~40px of the viewport the
 					  picker and the primary action need.
 					*/}
-					<p className="text-center text-sm text-muted-foreground text-pretty">
+					<p className="text-center text-muted-foreground text-pretty">
 						{t('common:sender.subtitle')}
 					</p>
-					<div className="space-y-4 flex-1 flex flex-col">
+					<div className="flex min-h-0 flex-1 flex-col space-y-4">
 						<DragDrop
 							onFileSelect={handleFileSelect}
 							onFilesSelect={handleFilesSelect}

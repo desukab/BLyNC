@@ -16,18 +16,25 @@ const buttonVariants = cva(
 		},
 		variants: {
 			size: {
-				default: 'h-9 px-[calc(--spacing(3)-1px)] sm:h-8',
-				icon: 'size-9 sm:size-8',
-				'icon-lg': 'size-10 sm:size-9',
-				'icon-sm': 'size-8 sm:size-7',
+				/*
+				  Phone sizes are >= 44dp: these are the pre-`sm` values, so they
+				  are what a handset actually renders (the `sm:` overrides only
+				  apply from 640px up, i.e. desktop). A 36px control is below the
+				  Android/iOS minimum and is what made the pickers and footer
+				  read as fiddly on a phone.
+				*/
+				default: 'h-11 px-[calc(--spacing(3)-1px)] sm:h-8',
+				icon: 'size-11 sm:size-8',
+				'icon-lg': 'size-12 sm:size-9',
+				'icon-sm': 'size-11 sm:size-7',
 				'icon-xl':
-					"size-11 sm:size-10 [&_svg:not([class*='size-'])]:size-5 sm:[&_svg:not([class*='size-'])]:size-4.5",
+					"size-12 sm:size-10 [&_svg:not([class*='size-'])]:size-5 sm:[&_svg:not([class*='size-'])]:size-4.5",
 				'icon-xs':
-					"size-7 rounded-md before:rounded-[calc(var(--radius-md)-1px)] sm:size-6 not-in-data-[slot=input-group]:[&_svg:not([class*='size-'])]:size-4 sm:not-in-data-[slot=input-group]:[&_svg:not([class*='size-'])]:size-3.5",
-				lg: 'h-10 px-[calc(--spacing(3.5)-1px)] sm:h-9',
-				sm: 'h-8 gap-1.5 px-[calc(--spacing(2.5)-1px)] sm:h-7',
-				xl: "h-11 px-[calc(--spacing(4)-1px)] text-lg sm:h-10 sm:text-base [&_svg:not([class*='size-'])]:size-5 sm:[&_svg:not([class*='size-'])]:size-4.5",
-				xs: "h-7 gap-1 rounded-md px-[calc(--spacing(2)-1px)] text-sm before:rounded-[calc(var(--radius-md)-1px)] sm:h-6 sm:text-xs [&_svg:not([class*='size-'])]:size-4 sm:[&_svg:not([class*='size-'])]:size-3.5",
+					"size-11 rounded-xl before:rounded-[calc(var(--radius-xl)-1px)] sm:size-6 sm:rounded-md not-in-data-[slot=input-group]:[&_svg:not([class*='size-'])]:size-4 sm:not-in-data-[slot=input-group]:[&_svg:not([class*='size-'])]:size-3.5",
+				lg: 'h-12 px-[calc(--spacing(3.5)-1px)] sm:h-9',
+				sm: 'h-11 gap-1.5 px-[calc(--spacing(2.5)-1px)] sm:h-7',
+				xl: "h-12 px-[calc(--spacing(4)-1px)] text-lg sm:h-10 sm:text-base [&_svg:not([class*='size-'])]:size-5 sm:[&_svg:not([class*='size-'])]:size-4.5",
+				xs: "h-9 gap-1 rounded-md px-[calc(--spacing(2)-1px)] text-sm before:rounded-[calc(var(--radius-md)-1px)] sm:h-6 sm:text-xs [&_svg:not([class*='size-'])]:size-4 sm:[&_svg:not([class*='size-'])]:size-3.5",
 			},
 			variant: {
 				default:

@@ -72,7 +72,7 @@ function SettingSidebarTitle({
 			<div
 				{...props}
 				className={cn(
-					'group/sheader flex items-center gap-2 px-1.5',
+					'group/sheader flex min-h-11 items-center gap-2 px-1.5',
 					className
 				)}
 			>
