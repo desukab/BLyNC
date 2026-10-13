@@ -1,7 +1,6 @@
 import { useTranslation } from '../../../i18n'
 import { useAppSettingStore } from '../../../store/app-setting'
-import { FrameDescription, FrameTitle } from '../../ui/frame'
-import { Switch } from '../../ui/switch'
+import { ToggleGroup, ToggleRow } from '../../ui/toggle-group'
 
 export function ShowBroadcastToggle() {
 	const { t } = useTranslation()
@@ -13,19 +12,13 @@ export function ShowBroadcastToggle() {
 	)
 
 	return (
-		<div className="flex items-center justify-between">
-			<div className="flex-1">
-				<FrameTitle>
-					{t('settings.general.broadcast.showToggle.label')}
-				</FrameTitle>
-				<FrameDescription>
-					{t('settings.general.broadcast.showToggle.description')}
-				</FrameDescription>
-			</div>
-			<Switch
+		<ToggleGroup>
+			<ToggleRow
+				label={t('settings.general.broadcast.showToggle.label')}
+				description={t('settings.general.broadcast.showToggle.description')}
 				checked={showBroadcastToggle}
 				onCheckedChange={setShowBroadcastToggle}
 			/>
-		</div>
+		</ToggleGroup>
 	)
 }

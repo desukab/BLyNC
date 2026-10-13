@@ -448,5 +448,10 @@
 			"disabledNote": "릴레이가 꺼져 있습니다. 직접 연결만 사용하므로 엄격한 방화벽이나 NAT에서는 전송이 실패할 수 있습니다."
 		}
 	},
-	"comingSoon": "곧 제공"
+	"comingSoon": "곧 제공",
+	"history": {
+		"errorTitle": "History unavailable",
+		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up."
+	},
+	"retry": "Retry"
 }

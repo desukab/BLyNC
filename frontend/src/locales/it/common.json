@@ -448,5 +448,10 @@
 			"disabledNote": "I relay sono disattivati. Solo connessioni dirette, quindi i trasferimenti possono fallire con firewall o NAT restrittivi."
 		}
 	},
-	"comingSoon": "Prossimamente"
+	"comingSoon": "Prossimamente",
+	"history": {
+		"errorTitle": "History unavailable",
+		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up."
+	},
+	"retry": "Retry"
 }

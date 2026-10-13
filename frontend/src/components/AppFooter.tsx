@@ -41,12 +41,21 @@ const CONTACTS = [
 	},
 ]
 
-export function AppFooter() {
+export function AppFooter({
+	variant = 'full',
+}: {
+	variant?: 'full' | 'minimal'
+}) {
 	const { t } = useTranslation()
 	const isSharing = useSenderStore(
 		(s) => s.viewState === 'SHARING' || s.viewState === 'TRANSPORTING'
 	)
 	const showRelayStatus = useAppSettingStore((s) => s.showRelayStatus)
+
+	// On phones the bottom tab bar carries navigation, so the footer drops to
+	// the line that has no other home: what this build is, and where to find
+	// the project. Every destination it used to link to is still one tap away.
+	const minimal = variant === 'minimal'
 
 	return (
 		<div
@@ -62,7 +71,10 @@ export function AppFooter() {
 				<span className="text-sm text-muted-foreground ml-1">
 					{VERSION_DISPLAY}
 				</span>
-				<Separator className="hidden h-6 sm:block" orientation="vertical" />
+				<Separator
+					className={cn('h-6', minimal ? 'block' : 'hidden sm:block')}
+					orientation="vertical"
+				/>
 
 				{CONTACTS.map((contact) => (
 					<a
@@ -77,7 +89,9 @@ export function AppFooter() {
 								size: 'icon-sm',
 								variant: 'outline',
 							}),
-							'hidden sm:inline-flex'
+							// With the tab bar taking over, these are the only
+							// route off-app, so they stay on the phone too.
+							minimal ? 'inline-flex' : 'hidden sm:inline-flex'
 						)}
 					>
 						{contact.icon}
@@ -86,7 +100,7 @@ export function AppFooter() {
 			</div>
 			<div className="flex flex-1 items-center justify-end gap-2">
 				{/* Not gated on IS_PAIRING_CAPABLE: same set today, different meaning. */}
-				{IS_TAURI ? (
+				{IS_TAURI && !minimal ? (
 					isSharing ? (
 						<span
 							aria-disabled
@@ -111,7 +125,7 @@ export function AppFooter() {
 						</Link>
 					)
 				) : null}
-				{IS_PAIRING_CAPABLE ? (
+				{IS_PAIRING_CAPABLE && !minimal ? (
 					isSharing ? (
 						<span
 							aria-disabled
@@ -142,34 +156,35 @@ export function AppFooter() {
 						</Link>
 					)
 				) : null}
-				{showRelayStatus ? <RelayStatusButton /> : null}
-				{isSharing ? (
-					<button
-						type="button"
-						disabled
-						aria-label={t('settings.title')}
-						className={cn(
-							buttonVariants({
+				{showRelayStatus && !minimal ? <RelayStatusButton /> : null}
+				{!minimal &&
+					(isSharing ? (
+						<button
+							type="button"
+							disabled
+							aria-label={t('settings.title')}
+							className={cn(
+								buttonVariants({
+									size: 'icon-sm',
+									variant: 'outline',
+								}),
+								'pointer-events-none opacity-64'
+							)}
+						>
+							<SettingsIcon />
+						</button>
+					) : (
+						<Link
+							to="/settings"
+							className={buttonVariants({
 								size: 'icon-sm',
 								variant: 'outline',
-							}),
-							'pointer-events-none opacity-64'
-						)}
-					>
-						<SettingsIcon />
-					</button>
-				) : (
-					<Link
-						to="/settings"
-						className={buttonVariants({
-							size: 'icon-sm',
-							variant: 'outline',
-						})}
-						aria-label={t('settings.title')}
-					>
-						<SettingsIcon />
-					</Link>
-				)}
+							})}
+							aria-label={t('settings.title')}
+						>
+							<SettingsIcon />
+						</Link>
+					))}
 			</div>
 		</div>
 	)

@@ -448,5 +448,10 @@
 			"disabledNote": "Relay বন্ধ আছে। শুধু সরাসরি সংযোগ, তাই কঠোর ফায়ারওয়াল বা NAT-এর মাধ্যমে স্থানান্তর ব্যর্থ হতে পারে।"
 		}
 	},
-	"comingSoon": "শীঘ্রই আসছে"
+	"comingSoon": "শীঘ্রই আসছে",
+	"history": {
+		"errorTitle": "History unavailable",
+		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up."
+	},
+	"retry": "Retry"
 }

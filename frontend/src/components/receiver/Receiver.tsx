@@ -52,33 +52,26 @@ export function Receiver({ onTransferStateChange }: ReceiverProps) {
 	}, [isReceiving, onTransferStateChange])
 
 	return (
-		<div className="relative flex min-h-0 flex-1 flex-col space-y-5 overflow-y-auto p-0 sm:p-6">
+		<div className="relative flex min-h-0 flex-1 flex-col gap-4">
 			{!isReceiving ? (
 				<>
-					{/*
-					  Same reasoning as the Send panel: the tab strip already
-					  names this region, so the copy below carries the detail and
-					  the "how do I receive?" affordance sits on the same baseline
-					  instead of floating against an unpositioned ancestor.
-					*/}
-					<div className="flex items-start justify-between gap-2">
-						<p className="text-sm text-muted-foreground text-pretty">
-							{t('common:receiver.subtitle')}
-						</p>
+					{/* The screen title carries the "Receive" heading; this row is the
+					    one place the how-it-works help lives, aligned to the primary
+					    action rather than floating next to body copy. */}
+					<div className="flex items-center justify-end">
 						<Button
-							size="icon-sm"
 							type="button"
 							variant="ghost"
+							size="sm"
 							onClick={() => setShowInstructionsDialog(true)}
-							className="-mr-1 shrink-0 text-muted-foreground"
-							aria-label={t('common:receiver.howToReceive')}
-							title={t('common:receiver.howToReceive')}
+							className="text-muted-foreground"
 						>
 							<Info />
+							{t('common:receiver.howToReceive')}
 						</Button>
 					</div>
 
-					<div className="space-y-4 flex-1 flex flex-col">
+					<div className="flex min-h-0 flex-1 flex-col gap-4">
 						<ReceiveSaveLocationPicker
 							savePath={savePath}
 							disabled={isReceiving}

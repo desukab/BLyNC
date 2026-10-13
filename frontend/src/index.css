@@ -273,6 +273,79 @@
 	--duration-normal: 220ms;
 }
 
+/*
+  ---break---
+  BLyNC surface model
+
+  The inherited layout nested every unit inside a tinted container *and* a
+  bordered panel, so a screen with seven settings rendered as seven pairs of
+  stacked rounded rectangles with no hierarchy between them. BLyNC uses one
+  flat page instead: content sits directly on the background, groups are
+  separated by space and a hairline, and elevation is spent only on things that
+  genuinely float above the page (dialogs, menus, the active-transfer sheet).
+
+    level 0  --background            the page itself
+    level 1  --surface-raised        a group, separated by a rule not a box
+    level 2  --surface-floating      dialogs, popovers, menus, sheets
+    level 3  --surface-overlay       transient toasts
+
+  Every colour is expressed as a mix of the page background, so a theme only
+  has to set one hue per level and all four stay consistent with it.
+  ---break---
+*/
+:root {
+	--surface-raised: color-mix(
+		in srgb,
+		var(--background) 92%,
+		var(--foreground)
+	);
+	--surface-floating: color-mix(
+		in srgb,
+		var(--background) 97%,
+		var(--foreground)
+	);
+	--surface-overlay: color-mix(
+		in srgb,
+		var(--background) 88%,
+		var(--foreground)
+	);
+
+	/* Hairlines. One value, so a divider can never drift from a card edge. */
+	--hairline: color-mix(in srgb, var(--foreground) 10%, transparent);
+	--hairline-strong: color-mix(in srgb, var(--foreground) 16%, transparent);
+
+	/*
+	  Spacing scale. Every layout gap resolves to one of these, which is what
+	  makes unrelated screens line up. The old UI mixed 1.5/2.5/3.5 with 3/4/5
+	  and produced off-grid offsets on nearly every settings row.
+	*/
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 0.75rem;
+	--space-4: 1rem;
+	--space-5: 1.5rem;
+	--space-6: 2rem;
+	--space-7: 2.5rem;
+	--space-8: 3rem;
+
+	/* The single floor for anything a thumb has to hit. */
+	--target-min: 44px;
+}
+
+/*
+  Display sizes. The UI type stopped at `text-2xl` because nothing in the app
+  was ever a title — every screen opened with a tab strip or a card header.
+  BLyNC gives each screen a real headline, so the scale needs to reach it.
+*/
+@theme inline {
+	--text-display: calc(var(--font-size-base) * 1.75); /* 28px */
+	--text-title: calc(var(--font-size-base) * 1.375); /* 22px */
+	--text-heading: calc(var(--font-size-base) * 1.125); /* 18px */
+	--text-body: var(--font-size-base); /* 16px */
+	--text-callout: calc(var(--font-size-base) * 0.875); /* 14px */
+	--text-caption: calc(var(--font-size-base) * 0.75); /* 12px */
+}
+
 @layer base {
 	body {
 		margin: 0;

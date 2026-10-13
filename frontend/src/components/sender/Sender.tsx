@@ -70,38 +70,27 @@ export function Sender({ onTransferStateChange }: SenderProps) {
 	}, [viewState, isBroadcastMode, setIsBroadcastMode])
 
 	return (
-		<div className="relative flex min-h-0 flex-1 flex-col space-y-5 overflow-y-auto p-0 sm:p-6">
+		<div className="relative flex min-h-0 flex-1 flex-col gap-4">
 			{/* IDLE state: Show file selection UI */}
 			{viewState === 'IDLE' && (
-				<>
-					{/*
-					  No heading here: the tab strip directly above already labels
-					  this panel and is what a screen reader announces for it, so a
-					  second "Send" was costing a phone ~40px of the viewport the
-					  picker and the primary action need.
-					*/}
-					<p className="text-center text-muted-foreground text-pretty">
-						{t('common:sender.subtitle')}
-					</p>
-					<div className="flex min-h-0 flex-1 flex-col space-y-4">
-						<DragDrop
-							onFileSelect={handleFileSelect}
-							onFilesSelect={handleFilesSelect}
-							selectedPaths={selectedPaths}
-							selectedPath={selectedPath}
-							isLoading={isLoading}
-							onClearSelection={clearSelectedPath}
-							onRemoveSelectedPath={removeSelectedPath}
-						/>
+				<div className="flex min-h-0 flex-1 flex-col gap-4">
+					<DragDrop
+						onFileSelect={handleFileSelect}
+						onFilesSelect={handleFilesSelect}
+						selectedPaths={selectedPaths}
+						selectedPath={selectedPath}
+						isLoading={isLoading}
+						onClearSelection={clearSelectedPath}
+						onRemoveSelectedPath={removeSelectedPath}
+					/>
 
-						<ShareActionCard
-							selectedPaths={selectedPaths}
-							selectedPath={selectedPath}
-							isLoading={isLoading}
-							onStartSharing={startSharing}
-						/>
-					</div>
-				</>
+					<ShareActionCard
+						selectedPaths={selectedPaths}
+						selectedPath={selectedPath}
+						isLoading={isLoading}
+						onStartSharing={startSharing}
+					/>
+				</div>
 			)}
 
 			{/* SUCCESS state: Show transfer success screen (only in non-broadcast mode) */}

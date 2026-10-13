@@ -448,5 +448,10 @@
 			"disabledNote": "Relay ត្រូវបានបិទ។ មានតែការតភ្ជាប់ផ្ទាល់ ដូច្នេះការផ្ទេរអាចបរាជ័យឆ្លងកាត់ firewall ឬ NAT ដ៏តឹងរ៉ឹង។"
 		}
 	},
-	"comingSoon": "មកដល់ឆាប់ៗនេះ"
+	"comingSoon": "មកដល់ឆាប់ៗនេះ",
+	"history": {
+		"errorTitle": "History unavailable",
+		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up."
+	},
+	"retry": "Retry"
 }

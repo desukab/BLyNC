@@ -448,5 +448,10 @@
 			"disabledNote": "リレーは無効です。直接接続のみのため、厳格なファイアウォールや NAT では転送が失敗することがあります。"
 		}
 	},
-	"comingSoon": "近日公開"
+	"comingSoon": "近日公開",
+	"history": {
+		"errorTitle": "History unavailable",
+		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up."
+	},
+	"retry": "Retry"
 }

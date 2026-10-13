@@ -1,4 +1,4 @@
-import { ChevronDown, ChevronUp, Download } from 'lucide-react'
+import { ChevronDown, ChevronUp, Download, Loader2 } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from '../../i18n/react-i18next-compat'
 import { getPreviewFileIcon } from '../../lib/fileIcons'
@@ -57,7 +57,7 @@ function TicketPreviewCard({
 	}
 
 	return (
-		<div className="rounded-md border bg-card overflow-hidden">
+		<div className="overflow-hidden rounded-2xl border border-border bg-surface-raised">
 			<div className="p-3 flex gap-3 items-center">
 				<div className="w-14 h-14 rounded-md border bg-muted shrink-0 flex items-center justify-center relative overflow-hidden">
 					{previewThumbnailSrc && !hasFailedThumbnail(previewThumbnailKey) ? (
@@ -104,7 +104,7 @@ function TicketPreviewCard({
 				) : null}
 			</div>
 			{canExpandPreviewList && isPreviewListExpanded ? (
-				<div className="border-t bg-muted/20">
+				<div className="border-t border-border">
 					<div className="max-h-64 overflow-y-auto p-2 space-y-2">
 						{previewItems.map((item) => {
 							const itemThumbnailKey =
@@ -116,7 +116,7 @@ function TicketPreviewCard({
 							return (
 								<div
 									key={item.fileName}
-									className="flex items-center gap-3 rounded-md border bg-card px-2 py-2"
+									className="flex items-center gap-3 px-2 py-2"
 								>
 									<div className="w-12 h-12 rounded-md border bg-muted shrink-0 flex items-center justify-center overflow-hidden">
 										{itemThumbnailSrc &&
@@ -163,12 +163,12 @@ export function TicketInput({
 		: 'no-preview'
 
 	return (
-		<div className="space-y-4">
-			<div>
-				<p id="ticket-input-label" className="block text-sm font-medium mb-1">
+		<div className="flex flex-col gap-4">
+			<div className="flex flex-col gap-1.5">
+				<p id="ticket-input-label" className="text-body font-medium">
 					{t('common:receiver.pasteTicket')}
 				</p>
-				<div className="flex gap-2 p-0.5">
+				<div className="flex gap-2">
 					<Textarea
 						aria-labelledby="ticket-input-label"
 						value={ticket}
@@ -182,14 +182,19 @@ export function TicketInput({
 							}
 						}}
 						placeholder={t('common:receiver.ticketPlaceholder')}
-						className="font-mono"
-						rows={6}
+						className="min-h-28 font-mono text-body"
+						rows={5}
 					/>
 				</div>
 			</div>
 
 			{isPreviewLoading && ticket.trim() && !previewMetadata ? (
-				<div className="p-3 rounded-md border bg-muted/40 text-sm text-muted-foreground">
+				<div
+					role="status"
+					aria-live="polite"
+					className="flex items-center gap-2 rounded-2xl border border-border bg-surface-raised px-4 py-3 text-callout text-muted-foreground"
+				>
+					<Loader2 className="size-4 shrink-0 animate-spin" />
 					{t('common:receiver.connectingToSender')}
 				</div>
 			) : null}
@@ -203,11 +208,13 @@ export function TicketInput({
 
 			<Button
 				type="button"
+				size="lg"
 				onClick={onReceive}
 				disabled={!ticket.trim() || isReceiving}
 				className="w-full"
 			>
-				{t('common:receiver.download')} <Download className="h-8 w-8" />
+				<Download className="size-4.5" />
+				{t('common:receiver.download')}
 			</Button>
 		</div>
 	)

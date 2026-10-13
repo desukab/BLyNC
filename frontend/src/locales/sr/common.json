@@ -448,5 +448,10 @@
 			"disabledNote": "Releji su isključeni. Samo direktne veze, pa prenosi mogu da ne uspeju kroz stroge zaštitne zidove ili NAT."
 		}
 	},
-	"comingSoon": "Ускоро"
+	"comingSoon": "Ускоро",
+	"history": {
+		"errorTitle": "History unavailable",
+		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up."
+	},
+	"retry": "Retry"
 }

@@ -448,5 +448,10 @@
 			"disabledNote": "Les relais sont désactivés. Connexions directes uniquement, les transferts peuvent donc échouer derrière des pare-feu ou NAT stricts."
 		}
 	},
-	"comingSoon": "Bientôt disponible"
+	"comingSoon": "Bientôt disponible",
+	"history": {
+		"errorTitle": "History unavailable",
+		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up."
+	},
+	"retry": "Retry"
 }

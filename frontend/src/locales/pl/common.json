@@ -448,5 +448,10 @@
 			"disabledNote": "Relay są wyłączone. Tylko połączenia bezpośrednie, więc transfery mogą się nie powieść przy restrykcyjnych zaporach lub NAT."
 		}
 	},
-	"comingSoon": "Wkrótce"
+	"comingSoon": "Wkrótce",
+	"history": {
+		"errorTitle": "History unavailable",
+		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up."
+	},
+	"retry": "Retry"
 }

@@ -1,17 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { invoke } from '@/lib/platform-api'
-import {
-	ChevronDown,
-	ChevronRight,
-	FilePlus,
-	FolderPlus,
-	Plus,
-	Upload,
-	X,
-} from 'lucide-react'
+import { ChevronDown, FilePlus, FolderPlus, Plus, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from '../../i18n/react-i18next-compat'
 import type { DropzoneProps } from '../../types/sender'
+import { invoke } from '@/lib/platform-api'
 import { getPreviewFileIcon } from '../../lib/fileIcons'
 import { Button } from '../ui/button'
 import { Menu, MenuItem, MenuPopup, MenuTrigger } from '../ui/menu'
@@ -27,6 +19,18 @@ const getPathBaseName = (path: string) => {
 	return normalized.split('/').pop() ?? path
 }
 
+/**
+ * The selection surface for Send.
+ *
+ * This replaces a 2px dashed drop-target that also doubled as a button, wrapped
+ * an upload glyph at 1.85x scale, and sat above two more buttons offering the
+ * same two actions — three competing affordances for one job.
+ *
+ * The rule now: on a phone the card *is* the file picker (tap anywhere on it),
+ * drag-and-drop highlight only appears on a pointer device that can actually
+ * drag, and adding more items moves into the overflow menu so the card stays
+ * clean when something is already selected.
+ */
 export function Dropzone({
 	isDragActive,
 	selectedPaths,
@@ -63,9 +67,7 @@ export function Dropzone({
 			try {
 				const mimeTypes = await invoke<(string | null)[]>(
 					'get_paths_mime_types',
-					{
-						paths: selectedPaths,
-					}
+					{ paths: selectedPaths }
 				)
 				if (!mounted) return
 
@@ -117,21 +119,11 @@ export function Dropzone({
 		}
 	}
 
+	const updateScrollHintsRef = useRef(updateScrollHints)
+	updateScrollHintsRef.current = updateScrollHints
+
 	useEffect(() => {
-		const handleResize = () => {
-			const container = previewScrollerRef.current
-			if (!container) {
-				setCanScrollLeft(false)
-				setCanScrollRight(false)
-				return
-			}
-
-			const { scrollLeft, scrollWidth, clientWidth } = container
-			const maxScrollLeft = scrollWidth - clientWidth
-			setCanScrollLeft(scrollLeft > 4)
-			setCanScrollRight(maxScrollLeft - scrollLeft > 4)
-		}
-
+		const handleResize = () => updateScrollHintsRef.current()
 		window.addEventListener('resize', handleResize)
 		return () => {
 			previewScrollerCleanupRef.current?.()
@@ -140,29 +132,13 @@ export function Dropzone({
 	}, [])
 
 	const getDropzoneStyles = () => {
-		const baseStyles: React.CSSProperties = {}
-
 		if (isDragActive) {
 			return {
-				...baseStyles,
-				borderColor: 'var(--info)',
-				backgroundColor: 'color-mix(in srgb, var(--info) 10%, transparent)',
+				borderColor: 'var(--primary)',
+				backgroundColor: 'color-mix(in srgb, var(--primary) 8%, transparent)',
 			}
 		}
-
-		if (selectedPath && !isLoading) {
-			return {
-				...baseStyles,
-			}
-		}
-
-		if (isLoading) {
-			return {
-				...baseStyles,
-			}
-		}
-
-		return baseStyles
+		return {}
 	}
 
 	const getStatusText = () => {
@@ -183,49 +159,34 @@ export function Dropzone({
 			const firstPath = selectedPaths[0]
 			const firstName = firstPath ? getPathBaseName(firstPath) : ''
 			const extraCount = selectedPaths.length - 1
-			return (
-				<div>
-					<div className="font-medium flex items-center justify-center">
-						{t('common:sender.multipleItemsSelected', {
-							count: extraCount,
-							firstName:
-								firstName.length > 40
-									? `${firstName.slice(0, 40)}…`
-									: firstName,
-						})}
-					</div>
-				</div>
-			)
+			return t('common:sender.multipleItemsSelected', {
+				count: extraCount,
+				firstName:
+					firstName.length > 40 ? `${firstName.slice(0, 40)}…` : firstName,
+			})
 		}
 		if (selectedPath) {
 			const fileName = getPathBaseName(selectedPath)
 			const displayName =
 				fileName.length > 60 ? `${fileName.slice(0, 60)}…` : fileName
 			return (
-				<div>
-					<div
-						className="font-medium cursor-pointer hover:opacity-80 transition-opacity flex items-center justify-center"
+				<>
+					<button
+						type="button"
 						onClick={onToggleFullPath}
-						title="Click to toggle full path"
+						title={displayName}
+						className="flex items-center justify-center gap-0.5 font-medium"
 					>
 						{displayName}
-						<span className="-mr-2 hidden sm:block ">
-							{showFullPath ? (
-								<ChevronDown className="p-0.5 h-6 w-6" size={16} />
-							) : (
-								<ChevronRight className="p-0.5 h-6 w-6" size={16} />
-							)}
-						</span>
-					</div>
-					<div
-						className="text-xs mt-1 opacity-75 break-all transition-opacity max-sm:hidden"
-						style={{
-							visibility: showFullPath ? 'visible' : 'hidden',
-						}}
+						<ChevronDown className={cnChevron(showFullPath)} strokeWidth={2} />
+					</button>
+					<span
+						className="mt-1 block max-sm:hidden break-all text-caption opacity-70 transition-opacity"
+						style={{ visibility: showFullPath ? 'visible' : 'hidden' }}
 					>
 						{selectedPath}
-					</div>
-				</div>
+					</span>
+				</>
 			)
 		}
 		return t('common:sender.orBrowse')
@@ -235,7 +196,7 @@ export function Dropzone({
 		const fileName = getPathBaseName(path)
 		const mimeType = mimeTypesByPath[path]
 		return (
-			<div className="origin-center scale-[1.85]">
+			<div className="origin-center scale-[1.5]">
 				{getPreviewFileIcon(mimeType, fileName)}
 			</div>
 		)
@@ -258,9 +219,11 @@ export function Dropzone({
 		<TooltipProvider>
 			<motion.div
 				layout
-				transition={{ duration: 0.3, ease: 'easeInOut' }}
+				transition={{ duration: 0.28, ease: [0.2, 0, 0, 1] }}
 				style={getDropzoneStyles()}
-				className="relative border-2 border-dashed rounded-lg text-center cursor-pointer transition-all duration-200 bg-accent text-accent-foreground h-fit min-h-64 border-border overflow-hidden"
+				data-slot="selection-card"
+				data-active={isDragActive ? 'true' : undefined}
+				className="relative flex h-fit min-h-56 flex-col overflow-hidden rounded-2xl border border-border bg-surface-raised text-center transition-colors"
 				role={!hasSelection ? 'button' : undefined}
 				tabIndex={!hasSelection && !isLoading ? 0 : undefined}
 				aria-label={!hasSelection ? t('common:sender.orBrowse') : undefined}
@@ -280,7 +243,7 @@ export function Dropzone({
 				{hasSelection && !isLoading ? (
 					<>
 						<div
-							className="absolute top-3 left-3 z-30"
+							className="absolute top-2 left-2 z-30"
 							onClick={(e) => e.stopPropagation()}
 							onKeyDown={(e) => e.stopPropagation()}
 						>
@@ -330,11 +293,9 @@ export function Dropzone({
 											e.stopPropagation()
 											onClearSelection()
 										}}
-										className="absolute top-3 right-3 z-30 text-muted-foreground"
+										className="absolute top-2 right-2 z-30 text-muted-foreground"
 										aria-label={t('common:sender.clearSelection')}
-									>
-										<X />
-									</Button>
+									/>
 								}
 							/>
 							<TooltipContent>
@@ -345,34 +306,31 @@ export function Dropzone({
 				) : null}
 				<motion.div
 					key={selectedPath ? 'selected' : 'empty'}
-					initial={{ opacity: 0, filter: 'blur(4px)' }}
-					animate={{ opacity: 1, filter: 'blur(0px)' }}
-					exit={{ opacity: 0, filter: 'blur(4px)' }}
-					transition={{ duration: 0.25 }}
-					className="h-full w-full p-4 sm:p-6"
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					exit={{ opacity: 0 }}
+					transition={{ duration: 0.2 }}
+					className="flex h-full w-full flex-col items-center justify-center gap-3 p-5"
 				>
-					{!hasSelection && (
-						<div className="flex h-full min-h-52 w-full flex-col items-center justify-center space-y-4">
-							<div className="flex justify-center items-center h-16">
-								<Upload
-									className="h-12 w-12 text-foreground/60 data-active:text-accent-foreground transition-transform"
-									data-active={isDragActive ? 'true' : 'false'}
-								/>
+					{!hasSelection ? (
+						<>
+							<div className="flex size-14 items-center justify-center rounded-2xl bg-muted text-muted-foreground">
+								<UploadGlyph />
 							</div>
-
-							<div>
-								<p className=" hidden sm:block text-lg font-medium mb-2 text-accent-foreground">
+							<div className="flex flex-col gap-1">
+								{/* The status line is the heading on desktop; on a phone
+								    the tap target carries the meaning, so this stays
+								    secondary rather than shouting over the screen title. */}
+								<p className="hidden text-heading font-medium sm:block">
 									{getStatusText()}
 								</p>
-								<div className="text-sm truncate text-muted-foreground">
+								<p className="text-sm text-muted-foreground text-pretty">
 									{getSubText()}
-								</div>
+								</p>
 							</div>
-						</div>
-					)}
-
-					<AnimatePresence initial={false}>
-						{hasSelection && (
+						</>
+					) : (
+						<AnimatePresence initial={false}>
 							<motion.div
 								key="selected-files-preview"
 								initial={{ opacity: 0, y: 10 }}
@@ -397,25 +355,14 @@ export function Dropzone({
 													<motion.div
 														key={path}
 														layout
-														initial={{
-															opacity: 0,
-															scale: 0.94,
-														}}
-														animate={{
-															opacity: 1,
-															scale: 1,
-														}}
-														exit={{
-															opacity: 0,
-															scale: 0.94,
-														}}
-														transition={{
-															duration: 0.16,
-														}}
-														className="group relative w-44 shrink-0"
+														initial={{ opacity: 0, scale: 0.94 }}
+														animate={{ opacity: 1, scale: 1 }}
+														exit={{ opacity: 0, scale: 0.94 }}
+														transition={{ duration: 0.16 }}
+														className="group relative w-40 shrink-0"
 													>
 														<div className="p-1">
-															<div className="relative flex h-36 w-full items-center justify-center overflow-hidden">
+															<div className="relative flex h-32 w-full items-center justify-center overflow-hidden">
 																{renderPathIcon(path)}
 																<Tooltip>
 																	<TooltipTrigger
@@ -426,13 +373,13 @@ export function Dropzone({
 																					e.stopPropagation()
 																					onRemoveSelectedPath(path)
 																				}}
-																				className="absolute right-2 top-2 z-10 rounded-full border bg-background p-1 text-muted-foreground opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100 focus-visible:opacity-100"
+																				className="absolute right-1 top-1 z-10 rounded-full border bg-background p-1 text-muted-foreground transition-opacity sm:opacity-0 sm:group-hover:opacity-100 focus-visible:opacity-100"
 																				aria-label={`Remove ${fileName}`}
 																			>
 																				<X className="h-3.5 w-3.5" />
 																			</button>
 																		}
-																	></TooltipTrigger>
+																	/>
 																	<TooltipContent>
 																		<p>
 																			{t('common:sender.removeFromSelection')}
@@ -451,11 +398,40 @@ export function Dropzone({
 										</AnimatePresence>
 									</motion.div>
 								</div>
+								<p className="text-body font-medium text-pretty">
+									{getSubText()}
+								</p>
 							</motion.div>
-						)}
-					</AnimatePresence>
+						</AnimatePresence>
+					)}
 				</motion.div>
 			</motion.div>
 		</TooltipProvider>
 	)
+}
+
+function UploadGlyph() {
+	return (
+		<svg
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			strokeWidth={1.6}
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			className="size-7"
+			aria-hidden="true"
+		>
+			<path d="M12 16V4" />
+			<path d="m7 9 5-5 5 5" />
+			<path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+		</svg>
+	)
+}
+
+function cnChevron(showFullPath: boolean) {
+	return [
+		'h-4 w-4 transition-transform duration-[var(--duration-fast)]',
+		showFullPath ? 'rotate-0' : '-rotate-90',
+	].join(' ')
 }

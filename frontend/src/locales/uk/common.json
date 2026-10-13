@@ -448,5 +448,10 @@
 			"disabledNote": "Реле вимкнено. Лише прямі з'єднання, тому передавання може не вдатися через суворі брандмауери чи NAT."
 		}
 	},
-	"comingSoon": "Незабаром"
+	"comingSoon": "Незабаром",
+	"history": {
+		"errorTitle": "History unavailable",
+		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up."
+	},
+	"retry": "Retry"
 }

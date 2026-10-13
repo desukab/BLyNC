@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { History as HistoryIcon, Loader2 } from 'lucide-react'
+import { History as HistoryIcon } from 'lucide-react'
 import { useTranslation } from '../i18n'
 import { TransferHistoryRow } from '../components/history/TransferHistoryRow'
 import { BackArrowIcon } from '../components/back-arrow-icon'
@@ -13,15 +13,9 @@ import {
 	AlertDialogTitle,
 } from '../components/ui/alert-dialog'
 import { Button } from '../components/ui/button'
-import {
-	Empty,
-	EmptyDescription,
-	EmptyHeader,
-	EmptyMedia,
-	EmptyTitle,
-} from '../components/ui/empty'
-import { Frame } from '../components/ui/frame'
 import { ScrollArea } from '../components/ui/scroll-area'
+import { EmptyState, ErrorState, LoadingState } from '../components/ui/states'
+import { Screen, ScreenBody, ScreenTitle } from '../components/ui/surface'
 import {
 	Select,
 	SelectItem,
@@ -66,6 +60,7 @@ export function HistoryPage() {
 	const [tempData, setTempData] = useState<Record<string, TransferTempData>>({})
 	const [status, setStatus] = useState<TransferStatusFilter>('all')
 	const [isLoading, setIsLoading] = useState(true)
+	const [loadError, setLoadError] = useState(false)
 	const [isBusy, setIsBusy] = useState(false)
 	const [confirmClearAll, setConfirmClearAll] = useState(false)
 	const [pendingRemove, setPendingRemove] = useState<TransferRecord | null>(
@@ -93,30 +88,29 @@ export function HistoryPage() {
 		setTempData(Object.fromEntries(stats.filter((entry) => entry !== null)))
 	}, [])
 
-	useEffect(() => {
-		let cancelled = false
-		const load = async () => {
-			try {
-				const devices = IS_PAIRING_CAPABLE
-					? await listPairedDevices().catch(() => [])
-					: []
-				if (!cancelled) {
-					setPairedDevices(devices as KnownDevice[])
-				}
-				await refresh()
-			} catch (error) {
-				console.error('Failed to load transfer history:', error)
-			} finally {
-				if (!cancelled) {
-					setIsLoading(false)
-				}
-			}
-		}
-		void load()
-		return () => {
-			cancelled = true
+	const loadHistory = useCallback(async () => {
+		setIsLoading(true)
+		setLoadError(false)
+		try {
+			const devices = IS_PAIRING_CAPABLE
+				? await listPairedDevices().catch(() => [])
+				: []
+			setPairedDevices(devices as KnownDevice[])
+			await refresh()
+		} catch (error) {
+			console.error('Failed to load transfer history:', error)
+			// A failed read is not an empty history. Saying "Nothing here yet"
+			// after an engine error hides a real problem, so this is its own
+			// state with a way to try again.
+			setLoadError(true)
+		} finally {
+			setIsLoading(false)
 		}
 	}, [refresh])
+
+	useEffect(() => {
+		void loadHistory()
+	}, [loadHistory])
 
 	// A trusted device can land a transfer while this list is open. The shell
 	// announces a row only once it is terminal, so this re-reads the store
@@ -246,90 +240,88 @@ export function HistoryPage() {
 	}
 
 	return (
-		<div className="flex min-h-0 flex-1 flex-col">
-			{/* RootLayout paints a `z-10` drag region over the top 40px on macOS:
-			    `z-20` lets presses reach these controls, `pointer-events-none`
-			    keeps the gap between them draggable. */}
-			<div className="pointer-events-none relative z-20 flex items-center justify-between gap-2 pt-[calc(1.5rem+var(--safe-area-top))] pl-[calc(1rem+var(--safe-area-left))] pr-[calc(1rem+var(--safe-area-right))]">
-				{/* Arrow and title are one target, matching the settings header. */}
+		<Screen>
+			{/* Back + title as one target, plus a real screen heading below so the
+			    destination is unmistakable. */}
+			<div className="flex items-center justify-between gap-2 pt-[calc(0.5rem+var(--safe-area-top))]">
 				<Link
 					to="/"
-					className="pointer-events-auto flex min-h-11 min-w-0 items-center gap-2 rounded-md px-1.5 outline-none focus-visible:ring-2 focus-visible:ring-ring"
+					aria-label={t('common:back')}
+					className="-ml-2 flex size-11 items-center justify-center rounded-full text-muted-foreground active:bg-accent"
 				>
-					<BackArrowIcon size={18} className="text-muted-foreground" />
-					<h1 className="truncate font-medium text-lg">
-						{t('common:history.title')}
-					</h1>
+					<BackArrowIcon size={20} />
 				</Link>
 				{records.length > 0 && (
 					<Button
-						className="pointer-events-auto"
-						variant="outline"
-						size="xs"
+						variant="ghost"
+						size="sm"
 						disabled={isBusy}
 						onClick={() => setConfirmClearAll(true)}
+						className="text-muted-foreground"
 					>
 						{t('common:history.clearAll')}
 					</Button>
 				)}
 			</div>
 
-			<div className="flex min-h-0 flex-1 flex-col gap-3 pt-3 pl-[calc(1rem+var(--safe-area-left))] pr-[calc(1rem+var(--safe-area-right))]">
-				{/* A dropdown, not five chips: status is usually left on "All".
-				    Direction isn't a filter — one timeline, each row has its arrow. */}
-				<div className="flex items-center gap-2">
-					<Select value={status}>
-						<SelectTrigger size="sm" className="w-44">
-							<SelectValue placeholder={t('common:history.filters.all')}>
-								{(value: string | null) =>
-									t(`common:history.filters.${value ?? 'all'}`)
-								}
-							</SelectValue>
-						</SelectTrigger>
-						<SelectPopup>
-							{TRANSFER_STATUS_FILTERS.map((option) => (
-								<SelectItem
-									key={option}
-									value={option}
-									onClick={() => setStatus(option)}
-								>
-									{t(`common:history.filters.${option}`)}
-								</SelectItem>
-							))}
-						</SelectPopup>
-					</Select>
-					<span className="text-muted-foreground text-sm">
-						{t('common:history.filters.count', { count: visible.length })}
-					</span>
+			<ScreenBody>
+				<div className="flex flex-col gap-1">
+					<ScreenTitle>{t('common:history.title')}</ScreenTitle>
+					{/* One timeline, each row carries its own direction arrow, so
+					    direction is not a filter. Status is the only filter and
+					    usually stays on "All" — hence a dropdown, not chips. */}
+					<div className="mt-2 flex items-center gap-2">
+						<Select value={status}>
+							<SelectTrigger size="sm" className="w-44">
+								<SelectValue placeholder={t('common:history.filters.all')}>
+									{(value: string | null) =>
+										t(`common:history.filters.${value ?? 'all'}`)
+									}
+								</SelectValue>
+							</SelectTrigger>
+							<SelectPopup>
+								{TRANSFER_STATUS_FILTERS.map((option) => (
+									<SelectItem
+										key={option}
+										value={option}
+										onClick={() => setStatus(option)}
+									>
+										{t(`common:history.filters.${option}`)}
+									</SelectItem>
+								))}
+							</SelectPopup>
+						</Select>
+						<span className="text-callout text-muted-foreground tabular-nums">
+							{t('common:history.filters.count', { count: visible.length })}
+						</span>
+					</div>
 				</div>
 
 				<div className="min-h-0 flex-1">
 					<ScrollArea className="h-full">
 						{isLoading ? (
-							<div
-								role="status"
-								aria-busy="true"
-								className="flex items-center gap-2 py-8 text-muted-foreground text-sm"
-							>
-								<Loader2 className="h-4 w-4 animate-spin" />
-								{t('common:loading')}
-							</div>
+							<LoadingState label={t('common:loading')} />
+						) : loadError ? (
+							<ErrorState
+								title={t('common:history.errorTitle')}
+								description={t('common:history.errorDescription')}
+								retryLabel={t('retry')}
+								onRetry={() => {
+									void loadHistory()
+								}}
+							/>
 						) : visible.length === 0 ? (
-							<Empty className="py-10">
-								<EmptyHeader>
-									<EmptyMedia variant="icon">
-										<HistoryIcon />
-									</EmptyMedia>
-									<EmptyTitle>{t('common:history.empty.title')}</EmptyTitle>
-									<EmptyDescription>
-										{status === 'all'
-											? t('common:history.empty.description')
-											: t('common:history.empty.filtered')}
-									</EmptyDescription>
-								</EmptyHeader>
-							</Empty>
+							<EmptyState
+								icon={<HistoryIcon />}
+								title={t('common:history.empty.title')}
+								description={
+									status === 'all'
+										? t('common:history.empty.description')
+										: t('common:history.empty.filtered')
+								}
+							/>
 						) : (
-							<Frame className="mb-12">
+							<div className="flex flex-col">
 								{visible.map((record) => (
 									<TransferHistoryRow
 										key={record.id}
@@ -342,11 +334,11 @@ export function HistoryPage() {
 										isBusy={isBusy}
 									/>
 								))}
-							</Frame>
+							</div>
 						)}
 					</ScrollArea>
 				</div>
-			</div>
+			</ScreenBody>
 
 			<AlertDialog open={confirmClearAll} onOpenChange={setConfirmClearAll}>
 				<AlertDialogContent>
@@ -430,6 +422,6 @@ export function HistoryPage() {
 				type="error"
 				onClose={() => setMissingTarget(null)}
 			/>
-		</div>
+		</Screen>
 	)
 }

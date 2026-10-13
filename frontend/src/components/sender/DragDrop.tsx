@@ -54,7 +54,7 @@ export function DragDrop({
 	}, [selectedPath, checkPathType])
 
 	return (
-		<div className="h-full flex flex-col justify-between">
+		<div className="flex h-full min-h-0 flex-1 flex-col gap-4">
 			<Dropzone
 				isDragActive={isDragActive}
 				selectedPaths={selectedPaths}

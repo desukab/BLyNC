@@ -448,5 +448,10 @@
 			"disabledNote": "Relayer er av. Kun direkte tilkoblinger, så overføringer kan mislykkes gjennom strenge brannmurer eller NAT-er."
 		}
 	},
-	"comingSoon": "Kommer snart"
+	"comingSoon": "Kommer snart",
+	"history": {
+		"errorTitle": "History unavailable",
+		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up."
+	},
+	"retry": "Retry"
 }

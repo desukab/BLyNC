@@ -448,5 +448,10 @@
 			"disabledNote": "Реле отключены. Только прямые соединения, поэтому передачи могут не пройти через строгие брандмауэры или NAT."
 		}
 	},
-	"comingSoon": "Скоро"
+	"comingSoon": "Скоро",
+	"history": {
+		"errorTitle": "History unavailable",
+		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up."
+	},
+	"retry": "Retry"
 }

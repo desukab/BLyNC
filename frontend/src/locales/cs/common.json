@@ -448,5 +448,10 @@
 			"disabledNote": "Relay servery jsou vypnuté. Pouze přímá spojení, takže přenosy mohou přes přísné firewally nebo NAT selhat."
 		}
 	},
-	"comingSoon": "Již brzy"
+	"comingSoon": "Již brzy",
+	"history": {
+		"errorTitle": "History unavailable",
+		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up."
+	},
+	"retry": "Retry"
 }

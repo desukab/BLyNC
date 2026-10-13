@@ -448,5 +448,10 @@
 			"disabledNote": "الترحيل متوقف. اتصالات مباشرة فقط، لذا قد تفشل عمليات النقل عبر الجدران النارية الصارمة أو NAT."
 		}
 	},
-	"comingSoon": "قريبًا"
+	"comingSoon": "قريبًا",
+	"history": {
+		"errorTitle": "History unavailable",
+		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up."
+	},
+	"retry": "Retry"
 }

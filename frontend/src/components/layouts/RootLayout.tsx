@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom'
 
 import { AppFooter } from '../AppFooter'
 import { AppHeader } from './AppHeader'
+import { BottomNav } from './BottomNav'
 import { TitleBar } from '../TitleBar'
 import { useTranslation } from '@/i18n'
 import { AppUpdater } from '../common/AppUpdater'
@@ -20,6 +21,7 @@ import {
 	IS_LINUX,
 	IS_MACOS,
 	IS_PAIRING_CAPABLE,
+	IS_TAURI,
 	IS_UPDATER_AVAILABLE,
 	IS_WEB,
 	IS_WINDOWS,
@@ -55,7 +57,17 @@ export function RootLayout() {
 				)}
 				<AppHeader />
 				<Outlet />
-				<AppFooter />
+				{/* Phone-first chrome: the tab bar owns navigation, so the footer
+				    is reduced to the version/attribution line. Desktop keeps the
+				    full footer rail and no tab bar. */}
+				{IS_TAURI && IS_ANDROID ? (
+					<>
+						<AppFooter variant="minimal" />
+						<BottomNav />
+					</>
+				) : (
+					<AppFooter />
+				)}
 			</main>
 		</ReceiverProvider>
 	)

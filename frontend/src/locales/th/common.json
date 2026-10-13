@@ -448,5 +448,10 @@
 			"disabledNote": "ปิด relay แล้ว ใช้การเชื่อมต่อโดยตรงเท่านั้น การถ่ายโอนจึงอาจล้มเหลวผ่านไฟร์วอลล์หรือ NAT ที่เข้มงวด"
 		}
 	},
-	"comingSoon": "เร็วๆ นี้"
+	"comingSoon": "เร็วๆ นี้",
+	"history": {
+		"errorTitle": "History unavailable",
+		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up."
+	},
+	"retry": "Retry"
 }

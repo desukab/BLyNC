@@ -448,5 +448,10 @@
 			"disabledNote": "Relay'lar o'chirilgan. Faqat to'g'ridan-to'g'ri ulanishlar, shuning uchun qattiq fayervol yoki NAT orqali uzatishlar muvaffaqiyatsiz bo'lishi mumkin."
 		}
 	},
-	"comingSoon": "Tez orada"
+	"comingSoon": "Tez orada",
+	"history": {
+		"errorTitle": "History unavailable",
+		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up."
+	},
+	"retry": "Retry"
 }

@@ -448,5 +448,10 @@
 			"disabledNote": "A relayek ki vannak kapcsolva. Csak közvetlen kapcsolatok, így szigorú tűzfalak vagy NAT-ok esetén az átvitel meghiúsulhat."
 		}
 	},
-	"comingSoon": "Hamarosan"
+	"comingSoon": "Hamarosan",
+	"history": {
+		"errorTitle": "History unavailable",
+		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up."
+	},
+	"retry": "Retry"
 }

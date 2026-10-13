@@ -448,5 +448,10 @@
 			"disabledNote": "Relays sind deaktiviert. Nur direkte Verbindungen, daher können Übertragungen bei strengen Firewalls oder NATs fehlschlagen."
 		}
 	},
-	"comingSoon": "Demnächst"
+	"comingSoon": "Demnächst",
+	"history": {
+		"errorTitle": "History unavailable",
+		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up."
+	},
+	"retry": "Retry"
 }

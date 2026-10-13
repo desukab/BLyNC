@@ -448,5 +448,10 @@
 			"disabledNote": "中繼已停用。僅限直接連線，因此在嚴格的防火牆或 NAT 環境下傳輸可能失敗。"
 		}
 	},
-	"comingSoon": "即將推出"
+	"comingSoon": "即將推出",
+	"history": {
+		"errorTitle": "History unavailable",
+		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up."
+	},
+	"retry": "Retry"
 }

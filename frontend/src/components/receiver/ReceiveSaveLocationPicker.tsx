@@ -35,8 +35,8 @@ export function ReceiveSaveLocationPicker({
 				: null
 
 	return (
-		<div>
-			<p className="block text-sm font-medium mb-2">{saveLocationLabel}</p>
+		<div className="flex flex-col gap-1.5">
+			<p className="text-body font-medium">{saveLocationLabel}</p>
 			<InputGroup
 				onClick={canPickSaveLocation && !disabled ? onBrowseFolder : undefined}
 				className={
@@ -65,9 +65,7 @@ export function ReceiveSaveLocationPicker({
 				) : null}
 			</InputGroup>
 			{saveLocationHint ? (
-				<p className="mt-1.5 text-xs text-muted-foreground">
-					{saveLocationHint}
-				</p>
+				<p className="text-caption text-muted-foreground">{saveLocationHint}</p>
 			) : null}
 		</div>
 	)

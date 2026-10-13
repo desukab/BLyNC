@@ -448,5 +448,10 @@
 			"disabledNote": "Relayها خاموش هستند. فقط اتصال مستقیم، بنابراین ممکن است انتقال‌ها از طریق فایروال‌ها یا NATهای سخت‌گیرانه ناموفق باشند."
 		}
 	},
-	"comingSoon": "به‌زودی"
+	"comingSoon": "به‌زودی",
+	"history": {
+		"errorTitle": "History unavailable",
+		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up."
+	},
+	"retry": "Retry"
 }

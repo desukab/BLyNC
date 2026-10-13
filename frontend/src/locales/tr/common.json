@@ -448,5 +448,10 @@
 			"disabledNote": "Relay'ler kapalı. Yalnızca doğrudan bağlantılar; bu nedenle katı güvenlik duvarları veya NAT'larda aktarımlar başarısız olabilir."
 		}
 	},
-	"comingSoon": "Çok yakında"
+	"comingSoon": "Çok yakında",
+	"history": {
+		"errorTitle": "History unavailable",
+		"errorDescription": "BLyNC could not read your transfer history. The engine may be starting up."
+	},
+	"retry": "Retry"
 }
