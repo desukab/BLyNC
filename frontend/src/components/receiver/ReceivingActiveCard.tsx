@@ -1,7 +1,7 @@
 import { Square } from 'lucide-react'
 import { useTranslation } from '../../i18n/react-i18next-compat'
 import type { TransferProgress } from '../../types/transfer'
-import { TransferProgressBar } from '../common/TransferProgressBar'
+import { TransferProgressRing } from '../common/TransferProgressRing'
 import { StatusIndicator } from '../common/StatusIndicator'
 import { Button } from '../ui/button'
 
@@ -20,6 +20,7 @@ export function ReceivingActiveCard({
 	isTransporting,
 	isCompleted,
 	transferProgress,
+	fileNames = [],
 	onStopReceiving,
 }: ReceivingActiveCardProps) {
 	const { t } = useTranslation()
@@ -46,8 +47,24 @@ export function ReceivingActiveCard({
 				{t('common:receiver.keepAppOpen')}
 			</p>
 
-			{isTransporting && transferProgress && (
-				<TransferProgressBar progress={transferProgress} />
+			{/*
+			  The same ring the sender uses. `isCompleted` comes from the engine's
+			  `receive-completed`, so the finished state appears only once the
+			  download really is done.
+			*/}
+			{(isTransporting || isCompleted) && (
+				<TransferProgressRing
+					progress={transferProgress}
+					isComplete={isCompleted}
+					/*
+					  Names arrive with `receive-file-names` at the end of the
+					  download, so during the transfer there is genuinely nothing
+					  to name and the ring shows the counts alone.
+					*/
+					fileName={isCompleted ? (fileNames[0] ?? '') : ''}
+					fileCount={fileNames.length || undefined}
+					compact
+				/>
 			)}
 
 			<Button

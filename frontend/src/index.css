@@ -36,6 +36,13 @@
 	--text-8xl: calc(var(--font-size-base) * 6);
 	--text-9xl: calc(var(--font-size-base) * 8);
 	--animate-skeleton: skeleton 2s -1s infinite linear;
+	/*
+	  The travelling head on the transfer ring while the engine has not reported
+	  a total size yet. A full turn, so it reads as "working" rather than as
+	  progress. Suppressed by `motion-reduce:animate-none` at the call site,
+	  which leaves a static blue segment - still legible, no movement.
+	*/
+	--animate-blync-ring-sweep: blync-ring-sweep 1.4s linear infinite;
 	--color-warning-foreground: var(--warning-foreground);
 	--color-warning: var(--warning);
 	--color-success-foreground: var(--success-foreground);
@@ -80,6 +87,11 @@
 	@keyframes skeleton {
 		to {
 			background-position: -200% 0;
+		}
+	}
+	@keyframes blync-ring-sweep {
+		to {
+			transform: rotate(360deg);
 		}
 	}
 }

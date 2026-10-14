@@ -17,7 +17,7 @@ import { randomUUID, copyTextToClipboard } from '../../lib/utils'
 import { useAppSettingStore } from '../../store/app-setting'
 import type { TransferProgress } from '../../types/transfer'
 import { PulseAnimation } from '../common/PulseAnimation'
-import { TransferProgressBar } from '../common/TransferProgressBar'
+import { TransferProgressRing } from '../common/TransferProgressRing'
 import { Button } from '../ui/button'
 import {
 	Dialog,
@@ -98,6 +98,15 @@ export function ShareLinkPanel({
 		? buildReceiveLink(ticket, IS_WEB ? window.location.origin : undefined)
 		: ''
 
+	/*
+	  What the ring names itself after. The sender knows exactly what it
+	  selected, so this is read off the real selection rather than guessed;
+	  a multi-file send shows the first name and leaves the count to the ring.
+	*/
+	const sendLabel = selectedPaths.length
+		? selectedPaths[0]?.split('/').pop() || ''
+		: ''
+
 	return (
 		<div className="flex flex-col gap-5 px-3 pt-3 sm:gap-4 sm:px-0 sm:pt-0">
 			<SharingActiveHeader
@@ -155,9 +164,20 @@ export function ShareLinkPanel({
 					</div>
 				)}
 
-				{progressToDisplay && (
+				{/*
+				  The ring takes the engine's completion flag rather than deriving
+				  one from the byte count: a transfer that reached 100% but was
+				  not verified has not finished, and must not look like it has.
+				*/}
+				{(progressToDisplay || isCompleted) && (
 					<div className="w-full">
-						<TransferProgressBar progress={progressToDisplay} />
+						<TransferProgressRing
+							progress={progressToDisplay}
+							isComplete={isCompleted}
+							compact
+							fileName={sendLabel}
+							fileCount={selectedPaths.length || undefined}
+						/>
 					</div>
 				)}
 			</div>
