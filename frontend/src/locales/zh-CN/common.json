@@ -12,7 +12,7 @@
 		"transferUnavailable": "Web 预览不支持文件传输。请下载桌面应用以发送和接收文件。"
 	},
 	"webPromo": {
-		"platforms": "DashBeam 提供桌面版、Android 版、CLI 版和 Web 版。",
+		"platforms": "BLyNC 提供桌面版、Android 版、CLI 版和 Web 版。",
 		"notice": "Web 版不支持直连 - 流量经由加密的公共中继转发，速度受限。无论如何，您的文件始终保持加密。建议使用桌面/CLI 应用或自定义中继以获得更好体验。",
 		"linksLabel": "获取桌面应用和项目链接",
 		"download": "查看下载选项",
@@ -82,7 +82,7 @@
 		"showReceiveQr": "显示接收二维码",
 		"receiveQrTitle": "接收二维码",
 		"scanToReceive": "扫码以接收",
-		"shareMessageIntro": "私密传输 - 使用 DashBeam 发送",
+		"shareMessageIntro": "私密传输 - 使用 BLyNC 发送",
 		"description": "描述（可选）",
 		"broadcastMode": {
 			"index": "广播",
@@ -183,7 +183,7 @@
 		"downloadFallbackSafDescription": "无法写入到选定的文件夹。文件已保存在 App 下载文件夹：{{path}}",
 		"conflictsMore": "... 等 {{count}} 项",
 		"pasteTicket": "在此处粘贴「一次性票据」：",
-		"ticketPlaceholder": "DashBeam 接收票据...",
+		"ticketPlaceholder": "BLyNC 接收票据...",
 		"howToReceive": "如何接收文件",
 		"instruction1": "发送者必须在线并维持共享状态",
 		"instruction2": "从发送者处获取「一次性票据」",
@@ -297,7 +297,7 @@
 				},
 				"contextMenu": {
 					"label": "资源管理器右键菜单",
-					"description": "在 Windows 资源管理器右键菜单中添加「使用 DashBeam 发送」"
+					"description": "在 Windows 资源管理器右键菜单中添加「使用 BLyNC 发送」"
 				}
 			},
 			"broadcast": {
@@ -310,15 +310,15 @@
 			"notifications": {
 				"title": "通知",
 				"label": "显示系统通知",
-				"description": "即使 DashBeam 不在前台，也可以收到配对请求、传入文件和下载完成的通知"
+				"description": "即使 BLyNC 不在前台，也可以收到配对请求、传入文件和下载完成的通知"
 			},
 			"debugMode": {
 				"label": "调试日志",
 				"description": "记录有关传输、连接、中继和配对的详细诊断信息，以便附加到错误报告中。默认情况下是关闭的，且在开启的 7 天后自动关闭。",
 				"restartTitle": "需要重启",
-				"restartDescription": "请退出重启 DashBeam 以使更改生效。",
-				"pendingOn": "重启 DashBeam 后，调试日志才会开始记录。",
-				"pendingOff": "重启 DashBeam 后，调试日志才会停止记录。",
+				"restartDescription": "请退出重启 BLyNC 以使更改生效。",
+				"pendingOn": "重启 BLyNC 后，调试日志才会开始记录。",
+				"pendingOff": "重启 BLyNC 后，调试日志才会停止记录。",
 				"save": "保存诊断信息…",
 				"savedTitle": "已保存诊断信息",
 				"savedDescription": "请将此文件附加到你的错误报告。请先检查一遍，因为其中包含 IP 地址、设备 ID、设备名称以及你分享的文件名。",
@@ -403,7 +403,7 @@
 		"network": {
 			"relay": {
 				"title": "中继服务器",
-				"description": "控制 DashBeam 用于 NAT 穿透和加密备用连接的 iroh 中继服务器。",
+				"description": "控制 BLyNC 用于 NAT 穿透和加密备用连接的 iroh 中继服务器。",
 				"modeDefault": "自动（公共中继）",
 				"modeDefaultDesc": "使用默认的公共 iroh 中继。适合大多数用户。",
 				"modeCustom": "自定义（自托管）",
@@ -445,7 +445,7 @@
 				"confirmDisableDescription": "您已选择禁用中继。如果您尝试与本地网络之外的人共享文件，文件传输可能会失败。中继可帮助设备在困难的网络条件下相互发现并连接，而您的传输始终保持端到端加密。",
 				"confirmCustomTitle": "使用自定义中继？",
 				"confirmCustomDescription": "您已选择使用自己托管的自定义中继。如果您的自定义中继无法访问，传输将自动回退到公共中继，并会通知您。中继仅帮助您的设备在困难的网络条件下连接，而您的传输始终保持端到端加密。",
-				"confirmCustomDescriptionWithPolicy": "您已选择使用自定义自托管中继。如果无法连接，DashBeam 将遵循中继设置中选择的回退策略。中继仅帮助设备在复杂网络环境下建立连接，传输始终端到端加密。",
+				"confirmCustomDescriptionWithPolicy": "您已选择使用自定义自托管中继。如果无法连接，BLyNC 将遵循中继设置中选择的回退策略。中继仅帮助设备在复杂网络环境下建立连接，传输始终端到端加密。",
 				"confirmContinue": "继续"
 			},
 			"discovery": {
@@ -496,7 +496,7 @@
 	},
 	"notifications": {
 		"pairRequestTitle": "{{sender}} 想要配对",
-		"pairRequestBody": "打开 DashBeam 以接受或拒绝",
+		"pairRequestBody": "打开 BLyNC 以接受或拒绝",
 		"inviteTitle": "{{sender}} 正向你发送文件",
 		"nearbyInviteTitle": "附近的 {{sender}} 想要给你发送文件",
 		"inviteBody": "{{count}} 个文件 · {{size}}",

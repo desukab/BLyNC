@@ -229,7 +229,12 @@
 		"avgSpeed": "Avg Speed",
 		"multipleFiles": "{{count}} Files",
 		"donatePrompt": "If you love the experience, please consider {{link}}. Thanks!",
-		"donateLink": "donating"
+		"donateLink": "donating",
+		"working": "Working",
+		"indeterminate": "Working out the total size",
+		"failed": "Transfer failed",
+		"cancelled": "Transfer cancelled",
+		"fileCount": "{{count}} files"
 	},
 	"errors": {
 		"sharingFailed": "Sharing Failed",

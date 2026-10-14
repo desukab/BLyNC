@@ -19,7 +19,7 @@
 		"github": "GitHub",
 		"linksLabel": "Desktopová aplikace a odkazy na projekt",
 		"notice": "Webová verze nepodporuje přímá spojení - provoz jde přes šifrované veřejné relay a rychlost je omezená. Vaše soubory zůstávají šifrované v každém případě. Pro lepší zážitek použijte desktop/CLI aplikaci nebo vlastní relay.",
-		"platforms": "DashBeam je k dispozici jako desktop, Android, CLI a web.",
+		"platforms": "BLyNC je k dispozici jako desktop, Android, CLI a web.",
 		"website": "Web"
 	},
 	"receive": "Přijmout",
@@ -139,7 +139,7 @@
 		"noFolderSelected": "Není vybrána žádná složka",
 		"conflictsMore": "... a dalších {{count}}",
 		"pasteTicket": "Sem vložte ticket:",
-		"ticketPlaceholder": "DashBeam ticket pro příjem...",
+		"ticketPlaceholder": "BLyNC ticket pro příjem...",
 		"howToReceive": "Jak přijmout soubory",
 		"instruction1": "Odesílatel musí být online a sdílet soubor",
 		"instruction2": "Získejte ticket od odesílatele",
@@ -267,7 +267,7 @@
 				},
 				"contextMenu": {
 					"label": "Kontextová nabídka Průzkumníka",
-					"description": "Přidat „Odeslat pomocí DashBeam“ do kontextové nabídky Průzkumníka Windows"
+					"description": "Přidat „Odeslat pomocí BLyNC“ do kontextové nabídky Průzkumníka Windows"
 				}
 			},
 			"broadcast": {
@@ -281,7 +281,7 @@
 		"network": {
 			"relay": {
 				"title": "Relay servery",
-				"description": "Ovládejte, které iroh relay servery DashBeam používá pro NAT traversal a šifrovaná záložní připojení.",
+				"description": "Ovládejte, které iroh relay servery BLyNC používá pro NAT traversal a šifrovaná záložní připojení.",
 				"modeDefault": "Automaticky (veřejné relay)",
 				"modeDefaultDesc": "Použije výchozí veřejné iroh relay. Nejlepší pro většinu uživatelů.",
 				"modeCustom": "Vlastní (self-hosted)",
@@ -317,7 +317,7 @@
 				"confirmCustomTitle": "Použít vlastní relay?",
 				"confirmCustomDescription": "Zvolili jste použití vlastních, svépomocně hostovaných relay. Pokud budou vaše vlastní relay nedostupné, přenosy se automaticky vrátí k veřejným relay a budete upozorněni. Relay pouze pomáhají vašim zařízením propojit se za obtížných síťových podmínek a vaše přenosy vždy zůstávají koncově šifrované.",
 				"confirmContinue": "Pokračovat",
-				"confirmCustomDescriptionWithPolicy": "Zvolili jste vlastní self-hosted relay. Pokud nebudou dostupné, DashBeam použije záložní politiku vybranou v nastavení relay. Relay pomáhají jen zařízením spojit se v náročných síťových podmínkách a vaše přenosy zůstávají vždy end-to-end šifrované.",
+				"confirmCustomDescriptionWithPolicy": "Zvolili jste vlastní self-hosted relay. Pokud nebudou dostupné, BLyNC použije záložní politiku vybranou v nastavení relay. Relay pomáhají jen zařízením spojit se v náročných síťových podmínkách a vaše přenosy zůstávají vždy end-to-end šifrované.",
 				"fallbackDescription": "Vyberte, co se stane, když vlastní relay nebude dostupný.",
 				"fallbackLabel": "Záložní politika",
 				"fallbackPublic": "V případě potřeby použít veřejné relay",

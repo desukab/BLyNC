@@ -37,7 +37,9 @@ const CONTACTS = [
 	{
 		link: WEBSITE_LINK,
 		icon: <GlobeIcon />,
-		'aria-label': 'DashBeam website',
+		// The destination is upstream's site and stays as it is; only the name
+		// this product calls itself by is BLyNC.
+		'aria-label': 'BLyNC website',
 	},
 ]
 
